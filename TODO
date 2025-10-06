@@ -1,0 +1,5 @@
+do db schema
+
+Insert Code Structure Organizasti
+
+Using landing-hero and content/landing-page.md for the content, and framer-motion for UI animation, create a landing page for "Mindful Eye". Account for SEO and mobile compatibility. 
