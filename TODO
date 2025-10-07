@@ -1,3 +1,17 @@
+create a csv of all of the high schools in the school district of Olathe, KS with their "name", "address", "city", "state", "zip", "nces_school_id", "is_public", and "level" (level being High School, Middle School, Junior High, or Elementary School).
+
+create a csv of all of the schools with their addressses, and "level".
+
+create a speadsheet of teachers
+
+add student (include name, date of birth, grade, school, district, and teacher). School, district, and teacher should be optional. 
+
+create a student dashboard
+
+record survey for child
+add survey for age range (this is for)
+
+
 Add an additional table to the schema (content/dynamo-db-schema.md). This table needs to be called UserSurvey and it associates a student-survey with the parent taking that survey. 
 
 In the model/migrate folder, add createUserSurvey, model it on the other files in the folder. 

@@ -38,7 +38,7 @@ export default function LandingPage() {
         {/* Animated background elements */}
         <motion.div
           className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl"
-          style={{ backgroundColor: 'oklch(0.35 0.12 142 / 0.1)' }}
+          style={{ backgroundColor: "oklch(0.35 0.12 142 / 0.1)" }}
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -51,7 +51,7 @@ export default function LandingPage() {
         />
         <motion.div
           className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl"
-          style={{ backgroundColor: 'oklch(0.35 0.12 142 / 0.08)' }}
+          style={{ backgroundColor: "oklch(0.35 0.12 142 / 0.08)" }}
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.2, 0.4, 0.2],
@@ -74,8 +74,8 @@ export default function LandingPage() {
             <motion.div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border cursor-pointer"
               style={{
-                backgroundColor: 'oklch(0.35 0.12 142 / 0.1)',
-                borderColor: 'oklch(0.35 0.12 142 / 0.3)'
+                backgroundColor: "oklch(0.35 0.12 142 / 0.1)",
+                borderColor: "oklch(0.35 0.12 142 / 0.3)",
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -91,9 +91,11 @@ export default function LandingPage() {
                   ease: "easeInOut",
                 }}
               />
-              <span className="text-sm font-medium" style={{ color: 'oklch(0.25 0.12 142)' }}>
-                Ask the Right Questions. Protect Their
-                Future.
+              <span
+                className="text-sm font-medium"
+                style={{ color: "oklch(0.25 0.12 142)" }}
+              >
+                Ask the Right Questions. Protect Their Future.
               </span>
             </motion.div>
           </motion.div>
