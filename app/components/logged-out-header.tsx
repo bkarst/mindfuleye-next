@@ -35,13 +35,13 @@ export default function LoggedOutHeader() {
             <Button
               variant="light"
               className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium"
-              onPress={() => (window.location.href = "/login")}
+              onPress={() => (window.location.href = "/login-signup?action=login")}
             >
               Login
             </Button>
             <Button
               className="bg-primary text-primary-foreground hover:opacity-90 font-medium"
-              onPress={() => (window.location.href = "/signup")}
+              onPress={() => (window.location.href = "/login-signup?action=signup")}
             >
               Sign Up
             </Button>
