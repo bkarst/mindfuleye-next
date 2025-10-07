@@ -7,6 +7,8 @@ import { createTeacherTable } from './createTeacher';
 import { createTeacherSchoolRelationshipTable } from './createTeacherSchoolRelationship';
 import { createStudentTeacherRelationshipTable } from './createStudentTeacherRelationship';
 import { createStudentSurveyTable } from './createStudentSurvey';
+import { createSurveyQuestionTable } from './createSurveyQuestion';
+import { createUserSurveyTable } from './createUserSurvey';
 import { createSurveyResponseTable } from './createSurveyResponse';
 
 /**
@@ -27,6 +29,8 @@ async function createAllTables() {
     { name: 'TeacherSchoolRelationship', createFn: createTeacherSchoolRelationshipTable },
     { name: 'StudentTeacherRelationship', createFn: createStudentTeacherRelationshipTable },
     { name: 'StudentSurvey', createFn: createStudentSurveyTable },
+    { name: 'SurveyQuestion', createFn: createSurveyQuestionTable },
+    { name: 'UserSurvey', createFn: createUserSurveyTable },
     { name: 'SurveyResponse', createFn: createSurveyResponseTable }
   ];
 

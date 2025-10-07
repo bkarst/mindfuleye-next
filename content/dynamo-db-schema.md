@@ -217,7 +217,36 @@ GSI:
 
 ---
 
-## 9. StudentSurvey Table
+## 9. SurveyQuestion Table
+TableName: SurveyQuestion
+PrimaryKey:
+  PartitionKey: questionId (String)
+
+Attributes:
+  - questionId: String (UUID)
+  - questionText: String
+  - responseType: String (Text/Number/Boolean/Scale/MultipleChoice/Checkbox)
+  - orderIndex: Number (for display ordering)
+  - isRequired: Boolean
+  - isActive: Boolean
+  - questionOptions: List<String> (for MultipleChoice/Checkbox types)
+  - helperText: String (optional guidance for parents)
+  - createdAt: String (ISO 8601 timestamp)
+  - updatedAt: String (ISO 8601 timestamp)
+
+GSI:
+  CategoryOrderIndex:
+    PartitionKey: questionCategory
+    SortKey: orderIndex
+
+  ActiveQuestionsIndex:
+    PartitionKey: isActive
+    SortKey: orderIndex
+    Condition: isActive = true
+
+---
+
+## 10. StudentSurvey Table
 TableName: StudentSurvey
 PrimaryKey:
   PartitionKey: studentId (String)
@@ -270,7 +299,41 @@ GSI:
 
 ---
 
-## 10. SurveyResponse Table
+## 11. UserSurvey Table
+TableName: UserSurvey
+PrimaryKey:
+  PartitionKey: parentId (String)
+  SortKey: surveyId (String)
+
+Attributes:
+  - parentId: String (Foreign Key to Parent)
+  - surveyId: String (Foreign Key to StudentSurvey)
+  - studentId: String (Foreign Key to Student)
+  - status: String (Pending/InProgress/Completed/Skipped)
+  - startedAt: String (ISO 8601 timestamp - when parent started the survey)
+  - completedAt: String (ISO 8601 timestamp - when parent completed the survey)
+  - lastAccessedAt: String (ISO 8601 timestamp - last time parent viewed the survey)
+  - reminderSentAt: String (ISO 8601 timestamp - last reminder sent)
+  - progress: Number (percentage 0-100 of survey completion)
+  - createdAt: String (ISO 8601 timestamp)
+  - updatedAt: String (ISO 8601 timestamp)
+
+GSI:
+  SurveyParentsIndex:
+    PartitionKey: surveyId
+    SortKey: parentId
+
+  StudentUserSurveysIndex:
+    PartitionKey: studentId
+    SortKey: createdAt
+
+  StatusIndex:
+    PartitionKey: status
+    SortKey: createdAt
+
+---
+
+## 12. SurveyResponse Table
 TableName: SurveyResponse
 PrimaryKey:
   PartitionKey: surveyId (String)
@@ -352,16 +415,34 @@ GSI:
 12. **Weekly completion tracking:**
    - Query: StudentSurvey.WeeklyReportsIndex with weekNumber
 
-13. **Get all responses for a survey:**
+13. **Get all surveys assigned to a parent:**
+   - Query: UserSurvey with parentId
+
+14. **Get all parents assigned to a survey:**
+   - Query: UserSurvey.SurveyParentsIndex with surveyId
+
+15. **Get all surveys for a student (via UserSurvey):**
+   - Query: UserSurvey.StudentUserSurveysIndex with studentId
+
+16. **Get all pending/incomplete surveys:**
+   - Query: UserSurvey.StatusIndex with status = "Pending" or "InProgress"
+
+17. **Get all active survey questions:**
+   - Query: SurveyQuestion.ActiveQuestionsIndex with isActive = true
+
+18. **Get questions by category in order:**
+   - Query: SurveyQuestion.CategoryOrderIndex with questionCategory
+
+19. **Get all responses for a survey:**
    - Query: SurveyResponse with surveyId
 
-14. **Get all responses for a student (historical tracking):**
+20. **Get all responses for a student (historical tracking):**
    - Query: SurveyResponse.StudentResponsesIndex with studentId
 
-15. **Get responses by category (e.g., all safety responses):**
+21. **Get responses by category (e.g., all safety responses):**
    - Query: SurveyResponse.QuestionCategoryIndex with questionCategory
 
-16. **Get flagged/concerning responses:**
+22. **Get flagged/concerning responses:**
    - Query: SurveyResponse.ConcernLevelIndex with concernLevel = "High" or "Critical"
 
 ---

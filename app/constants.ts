@@ -1,6 +1,13 @@
-import dotenv from 'dotenv'
-// Load environment variables from .env file
-dotenv.config()
+// Load environment variables in Node.js environment (for tests and server-side)
+// This won't run in the browser
+if (typeof window === 'undefined' && typeof process !== 'undefined') {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    require('dotenv').config()
+  } catch {
+    // dotenv not available or already loaded, that's okay
+  }
+}
 
 export const LOGGED_IN_HOME = '/chatter'
 
