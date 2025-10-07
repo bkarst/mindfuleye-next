@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+// Load environment variables from .env file
+dotenv.config()
+
 export const LOGGED_IN_HOME = '/chatter'
 
 export const APP_PREFIX = 'MindfulEye'
