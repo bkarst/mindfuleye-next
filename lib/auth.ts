@@ -19,16 +19,15 @@ provider.addScope('email')
 provider.addScope('profile')
 
 export const signOutFB = async () => {
-  const user = auth.currentUser
   signOut(auth).then(() => {
-    fetch('/api/auth/firebase/logout', {
-      method: 'POST'
-    }).then(() => {
-      window.location.href = '/login-signup'
+    window.location.href = '/login-signup'
+  }).catch((error) => {
+    console.error('Sign out error:', error)
+    addToast({
+      title: 'Sign out error',
+      description: error instanceof Error ? error.message : 'An unknown error occurred'
     })
   })
-
-  // router.push('/');
 }
 
 export const getFBUser = () => {
