@@ -52,7 +52,7 @@ export default function FAQSection() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -71,13 +71,13 @@ export default function FAQSection() {
             <motion.div
               key={index}
               variants={fadeInUp}
-              className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 overflow-hidden"
+              className="rounded-xl bg-card border border-border overflow-hidden"
             >
               <button
                 onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-accent transition-colors"
               >
-                <span className="font-semibold text-gray-900 dark:text-white">
+                <span className="font-semibold text-foreground">
                   {faq.question}
                 </span>
                 <motion.div
@@ -96,7 +96,7 @@ export default function FAQSection() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="px-6 pb-5 text-gray-600 dark:text-gray-400">
+                <div className="px-6 pb-5 text-muted-foreground">
                   {faq.answer}
                 </div>
               </motion.div>

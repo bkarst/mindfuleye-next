@@ -49,7 +49,7 @@ const features = [
 
 export default function KeyFeaturesSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -73,7 +73,7 @@ export default function KeyFeaturesSection() {
               key={index}
               variants={fadeInUp}
               whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="p-8 rounded-2xl bg-card border border-border shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">

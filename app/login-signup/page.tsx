@@ -8,7 +8,7 @@ export default async function LoginSignupPage({ searchParams }: any) {
   console.log('searchParams', params)
 
   return (
-    <main className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+    <main className="flex flex-col min-h-screen bg-background transition-colors duration-200">
       <LoggedOutHeader />
       <LoginSignupForm action={params?.action} />
     </main>

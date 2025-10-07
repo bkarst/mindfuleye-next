@@ -31,7 +31,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black">
+    <div className="min-h-screen bg-background">
       <LoggedOutHeader />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -133,7 +133,7 @@ export default function LandingPage() {
       </section>
 
       {/* Problem-Solution Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -165,7 +165,7 @@ export default function LandingPage() {
       <KeyFeaturesSection />
 
       {/* Why Mindful Eye Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
         <motion.div
           initial="hidden"
           whileInView="visible"

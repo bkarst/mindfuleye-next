@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@heroui/react";
 import { motion } from "framer-motion";
 
@@ -11,12 +12,12 @@ export default function LoggedOutHeader() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Text */}
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <Image
               src="/logo.png"
               alt="Mindful Eye Logo"
@@ -28,7 +29,7 @@ export default function LoggedOutHeader() {
             <span className="text-xl font-bold text-gray-900 dark:text-white font-herculanum">
               Mindful Eye
             </span>
-          </div>
+          </Link>
 
           {/* Auth Buttons */}
           <div className="flex items-center gap-3">
