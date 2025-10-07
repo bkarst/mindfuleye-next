@@ -37,7 +37,8 @@ export default function LandingPage() {
       <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Animated background elements */}
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl"
+          style={{ backgroundColor: 'oklch(0.35 0.12 142 / 0.1)' }}
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -49,7 +50,8 @@ export default function LandingPage() {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl"
+          style={{ backgroundColor: 'oklch(0.35 0.12 142 / 0.08)' }}
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.2, 0.4, 0.2],
@@ -70,12 +72,16 @@ export default function LandingPage() {
           {/* Badge */}
           <motion.div variants={itemVariants} className="mb-8">
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border cursor-pointer"
+              style={{
+                backgroundColor: 'oklch(0.35 0.12 142 / 0.1)',
+                borderColor: 'oklch(0.35 0.12 142 / 0.3)'
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <motion.div
-                className="w-2 h-2 rounded-full bg-blue-500"
+                className="w-2 h-2 rounded-full bg-primary"
                 animate={{
                   opacity: [0.5, 1, 0.5],
                 }}
@@ -85,7 +91,7 @@ export default function LandingPage() {
                   ease: "easeInOut",
                 }}
               />
-              <span className="text-sm font-medium text-blue-900 dark:text-blue-100">
+              <span className="text-sm font-medium" style={{ color: 'oklch(0.25 0.12 142)' }}>
                 Ask the Right Questions. Protect Their
                 Future.
               </span>
@@ -116,7 +122,7 @@ export default function LandingPage() {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="lg"
-                className="px-8 py-6 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl"
+                className="px-8 py-6 text-lg font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl"
                 endContent={<ChevronRight className="w-5 h-5" />}
               >
                 Start Free Trial
@@ -190,7 +196,7 @@ export default function LandingPage() {
       <FAQSection />
 
       {/* Final CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-primary">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -218,7 +224,7 @@ export default function LandingPage() {
           >
             <Button
               size="lg"
-              className="px-8 py-6 text-lg font-semibold bg-white text-purple-600 hover:bg-gray-100 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl"
+              className="px-8 py-6 text-lg font-semibold bg-white text-primary hover:bg-gray-100 transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl"
               endContent={<ChevronRight className="w-5 h-5" />}
             >
               Sign Up for Free Trial

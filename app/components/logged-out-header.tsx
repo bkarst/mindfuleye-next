@@ -25,7 +25,7 @@ export default function LoggedOutHeader() {
               className="w-10 h-10"
               priority
             />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
+            <span className="text-xl font-bold text-gray-900 dark:text-white font-herculanum">
               Mindful Eye
             </span>
           </div>
@@ -40,7 +40,7 @@ export default function LoggedOutHeader() {
               Login
             </Button>
             <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 font-medium"
+              className="bg-primary text-primary-foreground hover:opacity-90 font-medium"
               onPress={() => (window.location.href = "/signup")}
             >
               Sign Up
