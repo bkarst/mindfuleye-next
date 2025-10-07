@@ -9,7 +9,9 @@ if (typeof window === 'undefined' && typeof process !== 'undefined') {
   }
 }
 
-export const LOGGED_IN_HOME = '/chatter'
+export const LOGGED_IN_HOME = '/dashboard'
+
+export const COMPANY_NAME = 'Mindful Eye'
 
 export const APP_PREFIX = 'MindfulEye'
 

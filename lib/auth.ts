@@ -1,6 +1,5 @@
 'use client'
 
-import axios from 'axios'
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -66,13 +65,7 @@ export const signInWithEmail = async () => {
       const user = userCredential.user
 
       if (user.emailVerified) {
-        axios
-          .post('/api/auth/firebase/login', {
-            user: user
-          })
-          .then(response => {
-            window.location.href = LOGGED_IN_HOME
-          })
+        window.location.href = LOGGED_IN_HOME
       } else {
         addToast({
           title: 'Email not verified',
@@ -80,8 +73,6 @@ export const signInWithEmail = async () => {
             'Please verify your email. Check your inbox. You may need to check your spam folder.'
         })
       }
-      // await prepareSession()
-      // ...
     })
     .catch(error => {
       const errorCode = error.code
@@ -136,16 +127,9 @@ export const signUpWithGoogle = async () => {
     // signInWithRedirect(auth, provider)
     signInWithPopup(auth, provider).then(result => {
       const user = result.user
-      axios
-        .post('/api/auth/firebase/login', {
-          user: user
-        })
-        .then(response => {
-          window.location.href = LOGGED_IN_HOME
-        })
-
-      //
       console.log('user', user)
+      // Redirect to dashboard after successful authentication
+      window.location.href = LOGGED_IN_HOME
     })
   } catch (error: unknown) {
     console.error('Google sign up error:', error)
