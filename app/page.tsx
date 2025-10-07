@@ -1,21 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
-import {
-  Shield,
-  Eye,
-  Users,
-  ChevronRight,
-  CheckCircle2,
-  ChevronDown,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import LoggedOutHeader from "./components/logged-out-header";
+import FAQSection from "./components/faq-section";
+import KeyFeaturesSection from "./components/key-features-section";
 
 export default function LandingPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,61 +29,6 @@ export default function LandingPage() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
-
-  const features = [
-    {
-      icon: CheckCircle2,
-      title: "Weekly Accountability System",
-      description:
-        "Structured check-ins that help you stay consistently engaged in your child's education and emotional wellbeing",
-    },
-    {
-      icon: Eye,
-      title: "Educational Transparency Tools",
-      description:
-        "Framework to identify and address concerning classroom content or teaching methods that don't align with your family values",
-    },
-    {
-      icon: Shield,
-      title: "Safety Monitoring",
-      description:
-        "Regular prompts to assess both physical and emotional safety concerns before they escalate",
-    },
-    {
-      icon: Users,
-      title: "Progress Tracking",
-      description:
-        "Document patterns, improvements, and areas needing attention over time",
-    },
-  ];
-
-  const faqs = [
-    {
-      question: "How much time does the weekly check-in require?",
-      answer:
-        "Most parents complete their accountability check-in in 10-15 minutes. The structured format makes it efficient while ensuring thoroughness.",
-    },
-    {
-      question: "What if I have multiple children?",
-      answer:
-        "Each child gets their own profile and customized tracking. Our pricing is per child to ensure each one gets the individual attention they deserve.",
-    },
-    {
-      question: "Is this app politically affiliated?",
-      answer:
-        "Mindful Eye is non-partisan. We empower all parents to ensure their children's education aligns with their family's values, whatever those may be.",
-    },
-    {
-      question: "Can both parents use the app?",
-      answer:
-        "Yes, both parents can access the same child profiles and collaborate on accountability check-ins.",
-    },
-    {
-      question: "What if I miss a week?",
-      answer:
-        "Life happens. The app sends gentle reminders but never judges. You can always catch up and continue your progress.",
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black">
@@ -218,52 +156,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
-          className="max-w-7xl mx-auto"
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-              Key Features
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Everything you need to stay engaged and protect your child&apos;s
-              wellbeing
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                whileHover={{ y: -5 }}
-                className="p-8 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                      <feature.icon className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+      <KeyFeaturesSection />
 
       {/* Why Mindful Eye Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950">
@@ -294,59 +187,7 @@ export default function LandingPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
-          className="max-w-3xl mx-auto"
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
-
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 overflow-hidden"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <span className="font-semibold text-gray-900 dark:text-white">
-                    {faq.question}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: openFaq === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDown className="w-5 h-5 text-gray-500" />
-                  </motion.div>
-                </button>
-                <motion.div
-                  initial={false}
-                  animate={{
-                    height: openFaq === index ? "auto" : 0,
-                    opacity: openFaq === index ? 1 : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-6 pb-5 text-gray-600 dark:text-gray-400">
-                    {faq.answer}
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+      <FAQSection />
 
       {/* Final CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">

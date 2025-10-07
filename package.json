@@ -9,12 +9,16 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.902.0",
+    "@aws-sdk/lib-dynamodb": "^3.902.0",
     "@heroui/react": "^2.8.5",
     "@nivo/bar": "^0.99.0",
     "@nivo/core": "^0.99.0",
+    "aws-sdk": "^2.1692.0",
     "axios": "^1.12.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
     "firebase": "^12.3.0",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.545.0",

@@ -1,3 +1,22 @@
+Modify createTable to account for creating dynamo db tables with an APP_PREFIX as the prefix to the table and the environemnt appended to the table. For example MindfulEyeTeacherDevelopment, where MindfulEye is the Prefix, Teacher is the entity, and Development is the environement. 
+
+In the model/migrate folder, create a file called createStudent. Use content/dynamo-db-schema.md. It should use the createTable function that already exists. 
+
+In the model/migrate folder, create a file called create-SurveyResponse. Use content/dynamo-db-schema.md. It should use the createTable function that already exists. 
+
+StudentSurvey
+
+DB Tables
+parent, the main user
+teacher
+school
+student
+district
+parent organization
+
+
+ensure that 
+
 do db schema
 
 Insert Code Structure Organizasti
