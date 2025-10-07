@@ -15,102 +15,104 @@ const dyClient = new DynamoDBClient({
 })
 const docClient = DynamoDBDocumentClient.from(dyClient)
 
-export const getTeacherSchoolRelationshipTable = () => {
+export const getStudentTeacherRelationshipTable = () => {
   if (RUNTIME_ENV == 'development') {
-    return `${APP_PREFIX}TeacherSchoolRelationshipDevelopment`
+    return `${APP_PREFIX}StudentTeacherRelationshipDevelopment`
   } else if (RUNTIME_ENV == 'test') {
-    return `${APP_PREFIX}TeacherSchoolRelationshipTest`
+    return `${APP_PREFIX}StudentTeacherRelationshipTest`
   } else {
-    return `${APP_PREFIX}TeacherSchoolRelationship`
+    return `${APP_PREFIX}StudentTeacherRelationship`
   }
 }
 
 // Helper function to create composite sort key
-function createSortKey(schoolId: string, startDate: string): string {
-  return `${schoolId}#${startDate}`
+function createSortKey(teacherId: string, academicYear: string): string {
+  return `${teacherId}#${academicYear}`
 }
 
-export async function createTeacherSchoolRelationship(relationshipData: {
+export async function createStudentTeacherRelationship(relationshipData: {
+  studentId: string
   teacherId: string
-  schoolId: string
+  academicYear: string
+  subject?: string
+  gradeLevel?: string
   startDate: string
   endDate?: string
-  grades?: string[]
-  department?: string
   isCurrent?: boolean
 }) {
   try {
-    const sortKey = createSortKey(relationshipData.schoolId, relationshipData.startDate)
+    const sortKey = createSortKey(relationshipData.teacherId, relationshipData.academicYear)
 
     const relationship = {
+      studentId: relationshipData.studentId,
+      teacherIdAcademicYear: sortKey,
       teacherId: relationshipData.teacherId,
-      schoolIdStartDate: sortKey,
-      schoolId: relationshipData.schoolId,
+      academicYear: relationshipData.academicYear,
+      subject: relationshipData.subject,
+      gradeLevel: relationshipData.gradeLevel,
       startDate: relationshipData.startDate,
       endDate: relationshipData.endDate,
-      grades: relationshipData.grades,
-      department: relationshipData.department,
       isCurrent: relationshipData.isCurrent ?? true ? 'true' : 'false',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
 
     const command = new PutCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
+      TableName: getStudentTeacherRelationshipTable(),
       Item: relationship
     })
 
     const response = await docClient.send(command)
-    console.log('creating teacher-school relationship', response)
+    console.log('creating student-teacher relationship', response)
 
     return relationship
   } catch (error) {
-    console.error('Error creating teacher-school relationship:', error)
+    console.error('Error creating student-teacher relationship:', error)
     throw error
   }
 }
 
-export async function deleteTeacherSchoolRelationship(teacherId: string, schoolId: string, startDate: string) {
+export async function deleteStudentTeacherRelationship(studentId: string, teacherId: string, academicYear: string) {
   try {
-    const sortKey = createSortKey(schoolId, startDate)
+    const sortKey = createSortKey(teacherId, academicYear)
 
     const command = new DeleteCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
+      TableName: getStudentTeacherRelationshipTable(),
       Key: {
-        teacherId: teacherId,
-        schoolIdStartDate: sortKey
+        studentId: studentId,
+        teacherIdAcademicYear: sortKey
       },
       ReturnValues: 'ALL_OLD'
     })
 
     const response = await docClient.send(command)
-    console.log('deleting teacher-school relationship', response)
+    console.log('deleting student-teacher relationship', response)
 
     return response.Attributes || null
   } catch (error) {
-    console.error('Error deleting teacher-school relationship:', error)
+    console.error('Error deleting student-teacher relationship:', error)
     throw error
   }
 }
 
-export async function updateTeacherSchoolRelationship(
+export async function updateStudentTeacherRelationship(
+  studentId: string,
   teacherId: string,
-  schoolId: string,
-  startDate: string,
+  academicYear: string,
   relationshipData: {
+    subject?: string
+    gradeLevel?: string
     endDate?: string
-    grades?: string[]
-    department?: string
     isCurrent?: boolean
   }
 ) {
   try {
-    const sortKey = createSortKey(schoolId, startDate)
+    const sortKey = createSortKey(teacherId, academicYear)
 
     const updatableRelationshipData: any = {
+      subject: relationshipData.subject,
+      gradeLevel: relationshipData.gradeLevel,
       endDate: relationshipData.endDate,
-      grades: relationshipData.grades,
-      department: relationshipData.department,
       isCurrent: relationshipData.isCurrent
     }
 
@@ -134,10 +136,10 @@ export async function updateTeacherSchoolRelationship(
     })
 
     const command = new UpdateCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
+      TableName: getStudentTeacherRelationshipTable(),
       Key: {
-        teacherId: teacherId,
-        schoolIdStartDate: sortKey
+        studentId: studentId,
+        teacherIdAcademicYear: sortKey
       },
       UpdateExpression: updateExpression,
       ExpressionAttributeNames: expressionAttributeNames,
@@ -146,24 +148,24 @@ export async function updateTeacherSchoolRelationship(
     })
 
     const response = await docClient.send(command)
-    console.log('updating teacher-school relationship', response)
+    console.log('updating student-teacher relationship', response)
 
     return response.Attributes
   } catch (error) {
-    console.error('Error updating teacher-school relationship:', error)
+    console.error('Error updating student-teacher relationship:', error)
     throw error
   }
 }
 
-export async function getTeacherSchoolRelationship(teacherId: string, schoolId: string, startDate: string) {
+export async function getStudentTeacherRelationship(studentId: string, teacherId: string, academicYear: string) {
   try {
-    const sortKey = createSortKey(schoolId, startDate)
+    const sortKey = createSortKey(teacherId, academicYear)
 
     const command = new GetCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
+      TableName: getStudentTeacherRelationshipTable(),
       Key: {
-        teacherId: teacherId,
-        schoolIdStartDate: sortKey
+        studentId: studentId,
+        teacherIdAcademicYear: sortKey
       }
     })
 
@@ -171,33 +173,33 @@ export async function getTeacherSchoolRelationship(teacherId: string, schoolId: 
 
     return response.Item || null
   } catch (error) {
-    console.error('Error getting teacher-school relationship:', error)
+    console.error('Error getting student-teacher relationship:', error)
     throw error
   }
 }
 
-export async function getAllTeacherSchoolRelationships() {
+export async function getAllStudentTeacherRelationships() {
   try {
     const command = new ScanCommand({
-      TableName: getTeacherSchoolRelationshipTable()
+      TableName: getStudentTeacherRelationshipTable()
     })
 
     const response = await docClient.send(command)
 
     return response.Items || []
   } catch (error) {
-    console.error('Error getting all teacher-school relationships:', error)
+    console.error('Error getting all student-teacher relationships:', error)
     throw error
   }
 }
 
-export async function getSchoolsByTeacher(teacherId: string) {
+export async function getTeachersByStudent(studentId: string) {
   try {
     const command = new QueryCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
-      KeyConditionExpression: 'teacherId = :teacherId',
+      TableName: getStudentTeacherRelationshipTable(),
+      KeyConditionExpression: 'studentId = :studentId',
       ExpressionAttributeValues: {
-        ':teacherId': teacherId
+        ':studentId': studentId
       }
     })
 
@@ -205,40 +207,47 @@ export async function getSchoolsByTeacher(teacherId: string) {
 
     return response.Items || []
   } catch (error) {
-    console.error('Error getting schools by teacher:', error)
+    console.error('Error getting teachers by student:', error)
     throw error
   }
 }
 
-export async function getTeachersBySchool(schoolId: string) {
+export async function getStudentsByTeacher(teacherId: string, academicYear?: string) {
   try {
     const command = new QueryCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
-      IndexName: 'SchoolTeachersIndex',
-      KeyConditionExpression: 'schoolId = :schoolId',
-      ExpressionAttributeValues: {
-        ':schoolId': schoolId
-      }
+      TableName: getStudentTeacherRelationshipTable(),
+      IndexName: 'TeacherStudentsIndex',
+      KeyConditionExpression: academicYear
+        ? 'teacherId = :teacherId AND academicYear = :academicYear'
+        : 'teacherId = :teacherId',
+      ExpressionAttributeValues: academicYear
+        ? {
+            ':teacherId': teacherId,
+            ':academicYear': academicYear
+          }
+        : {
+            ':teacherId': teacherId
+          }
     })
 
     const response = await docClient.send(command)
 
     return response.Items || []
   } catch (error) {
-    console.error('Error getting teachers by school:', error)
+    console.error('Error getting students by teacher:', error)
     throw error
   }
 }
 
-export async function getCurrentTeachersBySchool(schoolId: string) {
+export async function getCurrentAssignments(studentId: string) {
   try {
     const command = new QueryCommand({
-      TableName: getTeacherSchoolRelationshipTable(),
-      IndexName: 'CurrentTeachersIndex',
-      KeyConditionExpression: 'isCurrent = :isCurrent AND schoolId = :schoolId',
+      TableName: getStudentTeacherRelationshipTable(),
+      IndexName: 'CurrentAssignmentsIndex',
+      KeyConditionExpression: 'isCurrent = :isCurrent AND studentId = :studentId',
       ExpressionAttributeValues: {
         ':isCurrent': 'true',
-        ':schoolId': schoolId
+        ':studentId': studentId
       }
     })
 
@@ -246,7 +255,7 @@ export async function getCurrentTeachersBySchool(schoolId: string) {
 
     return response.Items || []
   } catch (error) {
-    console.error('Error getting current teachers by school:', error)
+    console.error('Error getting current assignments:', error)
     throw error
   }
 }

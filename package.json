@@ -12,7 +12,11 @@
     "test:school": "tsx test/school.ts",
     "test:student": "tsx test/student.ts",
     "test:parent-student-relationship": "tsx test/parent-student-relationship.ts",
-    "test:teacher": "tsx test/teacher.ts"
+    "test:teacher": "tsx test/teacher.ts",
+    "test:teacher-school-relationship": "tsx test/teacher-school-relationship.ts",
+    "test:student-teacher-relationship": "tsx test/student-teacher-relationship.ts",
+    "test:student-survey": "tsx test/student-survey.ts",
+    "test:survey-response": "tsx test/survey-response.ts"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.902.0",
