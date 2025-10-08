@@ -217,43 +217,79 @@ GSI:
 
 ---
 
-## 9. SurveyQuestion Table
-TableName: SurveyQuestion
+## 9. Survey Table
+TableName: Survey
 PrimaryKey:
-  PartitionKey: questionId (String)
+  PartitionKey: surveyId (String)
 
 Attributes:
-  - questionId: String (UUID)
-  - questionText: String
-  - responseType: String (Text/Number/Boolean/Scale/MultipleChoice/Checkbox)
-  - orderIndex: Number (for display ordering)
-  - isRequired: Boolean
+  - surveyId: String (UUID)
+  - name: String (e.g., "Weekly Check-in", "End of Semester Review")
+  - grade_level: String (the grade level of the child that the survey in intended for)
+  - description: String
+  - surveyType: String (Weekly/Monthly/Quarterly/OneTime/Custom)
+  - targetAudience: String (Parents/Teachers/Students)
   - isActive: Boolean
-  - questionOptions: List<String> (for MultipleChoice/Checkbox types)
-  - helperText: String (optional guidance for parents)
+  - version: Number (for tracking survey template versions)
+  - instructions: String (guidance for survey takers)
+  - createdBy: String (userId who created the survey)
   - createdAt: String (ISO 8601 timestamp)
   - updatedAt: String (ISO 8601 timestamp)
 
 GSI:
+  ActiveSurveysIndex:
+    PartitionKey: isActive
+    SortKey: surveyType
+    Condition: isActive = true
+
+  SurveyTypeIndex:
+    PartitionKey: surveyType
+    SortKey: createdAt
+
+---
+
+## 10. SurveyQuestion Table
+TableName: SurveyQuestion
+PrimaryKey:
+  PartitionKey: surveyId (String)
+  SortKey: orderIndex#questionId (String - e.g., "001#question-123")
+
+Attributes:
+  - surveyId: String (Foreign Key to Survey)
+  - questionId: String (UUID)
+  - orderIndex: Number (for display ordering)
+  - questionText: String
+  - responseType: String (Text/Number/Boolean/Scale/MultipleChoice/Checkbox)
+  - questionCategory: String (Academic/Safety/Social/Behavioral/Communication)
+  - isRequired: Boolean
+  - isActive: Boolean
+  - questionOptions: List<String> (for MultipleChoice/Checkbox types)
+  - helperText: String (optional guidance for parents)
+  - sectionName: String (optional grouping within survey)
+  - conditionalLogic: String (JSON - optional logic for conditional display)
+  - createdAt: String (ISO 8601 timestamp)
+  - updatedAt: String (ISO 8601 timestamp)
+
+GSI:
+  QuestionIdIndex:
+    PartitionKey: questionId
+    ProjectionType: ALL
+
   CategoryOrderIndex:
     PartitionKey: questionCategory
     SortKey: orderIndex
 
-  ActiveQuestionsIndex:
-    PartitionKey: isActive
-    SortKey: orderIndex
-    Condition: isActive = true
-
 ---
 
-## 10. StudentSurvey Table
+## 11. StudentSurvey Table
 TableName: StudentSurvey
 PrimaryKey:
   PartitionKey: studentId (String)
   SortKey: surveyTimestamp (String - ISO 8601 timestamp)
   
 Attributes:
-  - surveyId: String (UUID - GSI PK)
+  - surveyInstanceId: String (UUID - unique instance identifier)
+  - surveyId: String (Foreign Key to Survey - which survey template was used)
   - studentId: String (Foreign Key)
   - parentId: String (Foreign Key - who completed it)
   - surveyTimestamp: String (ISO 8601 timestamp)
@@ -285,29 +321,34 @@ Attributes:
   - updatedAt: String (ISO 8601 timestamp)
 
 GSI:
-  SurveyIdIndex:
-    PartitionKey: surveyId
+  SurveyInstanceIdIndex:
+    PartitionKey: surveyInstanceId
     ProjectionType: ALL
-    
+
+  SurveyTemplateIndex:
+    PartitionKey: surveyId
+    SortKey: surveyTimestamp
+
   ParentSurveysIndex:
     PartitionKey: parentId
     SortKey: surveyTimestamp
-    
+
   WeeklyReportsIndex:
     PartitionKey: weekNumber
     SortKey: surveyTimestamp
 
 ---
 
-## 11. UserSurvey Table
+## 12. UserSurvey Table
 TableName: UserSurvey
 PrimaryKey:
   PartitionKey: parentId (String)
-  SortKey: surveyId (String)
+  SortKey: surveyInstanceId (String)
 
 Attributes:
   - parentId: String (Foreign Key to Parent)
-  - surveyId: String (Foreign Key to StudentSurvey)
+  - surveyInstanceId: String (Foreign Key to StudentSurvey)
+  - surveyId: String (Foreign Key to Survey - the survey template)
   - studentId: String (Foreign Key to Student)
   - status: String (Pending/InProgress/Completed/Skipped)
   - startedAt: String (ISO 8601 timestamp - when parent started the survey)
@@ -319,9 +360,13 @@ Attributes:
   - updatedAt: String (ISO 8601 timestamp)
 
 GSI:
-  SurveyParentsIndex:
-    PartitionKey: surveyId
+  SurveyInstanceParentsIndex:
+    PartitionKey: surveyInstanceId
     SortKey: parentId
+
+  SurveyTemplateParentsIndex:
+    PartitionKey: surveyId
+    SortKey: createdAt
 
   StudentUserSurveysIndex:
     PartitionKey: studentId
@@ -333,14 +378,15 @@ GSI:
 
 ---
 
-## 12. SurveyResponse Table
+## 13. SurveyResponse Table
 TableName: SurveyResponse
 PrimaryKey:
-  PartitionKey: surveyId (String)
+  PartitionKey: surveyInstanceId (String)
   SortKey: questionId (String)
 
 Attributes:
-  - surveyId: String (Foreign Key to StudentSurvey)
+  - surveyInstanceId: String (Foreign Key to StudentSurvey)
+  - surveyId: String (Foreign Key to Survey - the survey template)
   - questionId: String
   - studentId: String (Foreign Key)
   - parentId: String (Foreign Key)
@@ -418,8 +464,8 @@ GSI:
 13. **Get all surveys assigned to a parent:**
    - Query: UserSurvey with parentId
 
-14. **Get all parents assigned to a survey:**
-   - Query: UserSurvey.SurveyParentsIndex with surveyId
+14. **Get all parents assigned to a survey instance:**
+   - Query: UserSurvey.SurveyInstanceParentsIndex with surveyInstanceId
 
 15. **Get all surveys for a student (via UserSurvey):**
    - Query: UserSurvey.StudentUserSurveysIndex with studentId
@@ -427,22 +473,35 @@ GSI:
 16. **Get all pending/incomplete surveys:**
    - Query: UserSurvey.StatusIndex with status = "Pending" or "InProgress"
 
-17. **Get all active survey questions:**
-   - Query: SurveyQuestion.ActiveQuestionsIndex with isActive = true
+17. **Get all active survey templates:**
+   - Query: Survey.ActiveSurveysIndex with isActive = true
 
-18. **Get questions by category in order:**
+18. **Get surveys by type (e.g., all weekly surveys):**
+   - Query: Survey.SurveyTypeIndex with surveyType
+
+19. **Get all questions in a survey (ordered):**
+   - Query: SurveyQuestion with surveyId
+   - Results automatically sorted by orderIndex in sort key
+
+20. **Get a specific question by questionId:**
+   - Query: SurveyQuestion.QuestionIdIndex with questionId
+
+21. **Get questions by category in order:**
    - Query: SurveyQuestion.CategoryOrderIndex with questionCategory
 
-19. **Get all responses for a survey:**
-   - Query: SurveyResponse with surveyId
+22. **Get all responses for a survey instance:**
+   - Query: SurveyResponse with surveyInstanceId
 
-20. **Get all responses for a student (historical tracking):**
+23. **Get all survey instances using a template:**
+   - Query: StudentSurvey.SurveyTemplateIndex with surveyId
+
+24. **Get all responses for a student (historical tracking):**
    - Query: SurveyResponse.StudentResponsesIndex with studentId
 
-21. **Get responses by category (e.g., all safety responses):**
+25. **Get responses by category (e.g., all safety responses):**
    - Query: SurveyResponse.QuestionCategoryIndex with questionCategory
 
-22. **Get flagged/concerning responses:**
+26. **Get flagged/concerning responses:**
    - Query: SurveyResponse.ConcernLevelIndex with concernLevel = "High" or "Critical"
 
 ---

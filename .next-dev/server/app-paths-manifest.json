@@ -1,5 +1,6 @@
 {
   "/admin-dashboard/page": "app/admin-dashboard/page.js",
   "/api/student-surveys/route": "app/api/student-surveys/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js"
 }

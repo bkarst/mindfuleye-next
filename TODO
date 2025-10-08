@@ -1,3 +1,5 @@
+create a page called /admin-dashboard in which a system admin can manage the surveys for each student level. The user should be able to see the list of surveys, add one, and delete one. All components should be in HeroUI when possible. The underlying data object should be student-survey, found in model/student-survey.ts
+
 create a csv of all of the high schools in the school district of Olathe, KS with their "name", "address", "city", "state", "zip", "nces_school_id", "is_public", and "level" (level being High School, Middle School, Junior High, or Elementary School).
 
 create a csv of all of the schools with their addressses, and "level".
@@ -11,10 +13,9 @@ create a student dashboard
 record survey for child
 add survey for age range (this is for)
 
+Add an additional table to the schema (content/dynamo-db-schema.md). This table needs to be called Survey and it associates a defines what will be asked on a survey. To add questions to a survey, survey questions are added. 
 
-Add an additional table to the schema (content/dynamo-db-schema.md). This table needs to be called UserSurvey and it associates a student-survey with the parent taking that survey. 
-
-In the model/migrate folder, add createUserSurvey, model it on the other files in the folder. 
+In the model/migrate folder, add createSurvey, model it on the other files in the folder.
 
 add survey question
 add user survey
@@ -22,9 +23,9 @@ add parent organization?
 
 promote in utah
 
-Using content/dynamo-db-schema.md, create the file model/user-survey.ts and add the create, read, update, and delete method that model/district.ts has. 
+Using content/dynamo-db-schema.md, create the file model/survey.ts and add the create, read, update, and delete method that model/district.ts has. 
 
-In test/user-survey.ts, write a suite of tests that test create, read, update, delete for model/user-survey.ts. It should be runnable via command line. Model the tests in test/school.ts. 
+In test/survey.ts, write a suite of tests that test create, read, update, delete for model/user-survey.ts. It should be runnable via command line. Model the tests in test/school.ts. 
 
 Modify createTable to account for creating dynamo db tables with an APP_PREFIX as the prefix to the table and the environemnt appended to the table. For example MindfulEyeTeacherDevelopment, where MindfulEye is the Prefix, Teacher is the entity, and Development is the environement. 
 
