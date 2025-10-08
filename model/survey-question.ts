@@ -27,6 +27,7 @@ export const getSurveyQuestionTable = () => {
 
 
 export async function createSurveyQuestion(questionData: {
+  surveyId: string
   questionText: string
   questionCategory: string
   responseType: 'Text' | 'Number' | 'Boolean' | 'Scale' | 'MultipleChoice' | 'Checkbox'
@@ -35,10 +36,18 @@ export async function createSurveyQuestion(questionData: {
   isActive: boolean
   questionOptions?: string[]
   helperText?: string
+  sectionName?: string
+  conditionalLogic?: string
 }) {
   try {
+    const questionId = generateRandomString(12)
+    const orderIndexPadded = String(questionData.orderIndex).padStart(3, '0')
+    const sortKey = `${orderIndexPadded}#${questionId}`
+
     const surveyQuestion = {
-      questionId: generateRandomString(12),
+      surveyId: questionData.surveyId,
+      sortKey: sortKey,
+      questionId: questionId,
       questionText: questionData.questionText,
       questionCategory: questionData.questionCategory,
       responseType: questionData.responseType,
@@ -47,6 +56,8 @@ export async function createSurveyQuestion(questionData: {
       isActive: String(questionData.isActive),
       questionOptions: questionData.questionOptions,
       helperText: questionData.helperText,
+      sectionName: questionData.sectionName,
+      conditionalLogic: questionData.conditionalLogic,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
@@ -66,12 +77,13 @@ export async function createSurveyQuestion(questionData: {
   }
 }
 
-export async function deleteSurveyQuestion(questionId: string) {
+export async function deleteSurveyQuestion(surveyId: string, sortKey: string) {
   try {
     const command = new DeleteCommand({
       TableName: getSurveyQuestionTable(),
       Key: {
-        questionId: questionId
+        surveyId: surveyId,
+        sortKey: sortKey
       },
       ReturnValues: 'ALL_OLD'
     })
@@ -87,7 +99,8 @@ export async function deleteSurveyQuestion(questionId: string) {
 }
 
 export async function updateSurveyQuestion(
-  questionId: string,
+  surveyId: string,
+  sortKey: string,
   questionData: {
     questionText?: string
     questionCategory?: string
@@ -97,6 +110,8 @@ export async function updateSurveyQuestion(
     isActive?: boolean
     questionOptions?: string[]
     helperText?: string
+    sectionName?: string
+    conditionalLogic?: string
   }
 ) {
   try {
@@ -108,7 +123,9 @@ export async function updateSurveyQuestion(
       isRequired: questionData.isRequired !== undefined ? String(questionData.isRequired) : undefined,
       isActive: questionData.isActive !== undefined ? String(questionData.isActive) : undefined,
       questionOptions: questionData.questionOptions,
-      helperText: questionData.helperText
+      helperText: questionData.helperText,
+      sectionName: questionData.sectionName,
+      conditionalLogic: questionData.conditionalLogic
     }
 
     let updateExpression = 'SET updatedAt = :updatedAt'
@@ -128,7 +145,8 @@ export async function updateSurveyQuestion(
     const command = new UpdateCommand({
       TableName: getSurveyQuestionTable(),
       Key: {
-        questionId: questionId
+        surveyId: surveyId,
+        sortKey: sortKey
       },
       UpdateExpression: updateExpression,
       ExpressionAttributeNames: expressionAttributeNames,
@@ -146,12 +164,13 @@ export async function updateSurveyQuestion(
   }
 }
 
-export async function getSurveyQuestion(questionId: string) {
+export async function getSurveyQuestion(surveyId: string, sortKey: string) {
   try {
     const command = new GetCommand({
       TableName: getSurveyQuestionTable(),
       Key: {
-        questionId: questionId
+        surveyId: surveyId,
+        sortKey: sortKey
       }
     })
 
@@ -160,6 +179,25 @@ export async function getSurveyQuestion(questionId: string) {
     return response.Item || null
   } catch (error) {
     console.error('Error getting survey question:', error)
+    throw error
+  }
+}
+
+export async function getQuestionsBySurvey(surveyId: string) {
+  try {
+    const command = new QueryCommand({
+      TableName: getSurveyQuestionTable(),
+      KeyConditionExpression: 'surveyId = :surveyId',
+      ExpressionAttributeValues: {
+        ':surveyId': surveyId
+      }
+    })
+
+    const response = await docClient.send(command)
+
+    return response.Items || []
+  } catch (error) {
+    console.error('Error getting questions by survey:', error)
     throw error
   }
 }

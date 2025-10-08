@@ -1,6 +1,8 @@
 {
   "/admin-dashboard/page": "app/admin-dashboard/page.js",
-  "/api/student-surveys/route": "app/api/student-surveys/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js"
+  "/api/surveys/[surveyId]/questions/[sortKey]/route": "app/api/surveys/[surveyId]/questions/[sortKey]/route.js",
+  "/api/surveys/[surveyId]/questions/route": "app/api/surveys/[surveyId]/questions/route.js",
+  "/api/surveys/[surveyId]/route": "app/api/surveys/[surveyId]/route.js",
+  "/api/surveys/route": "app/api/surveys/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

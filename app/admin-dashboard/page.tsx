@@ -12,50 +12,36 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Input,
   Spinner,
   useDisclosure,
   Chip,
 } from "@heroui/react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Pencil } from "lucide-react";
 import { addToast } from "@heroui/react";
+import AddSurveyModal from "./components/AddSurveyModal";
+import EditSurveyModal from "./components/EditSurveyModal";
 
-interface StudentSurvey {
+interface Survey {
   surveyId: string;
-  studentId: string;
-  parentId: string;
-  surveyTimestamp: string;
-  weekNumber: number;
-  academicProgressJson?: string;
-  contentConcernsJson?: string;
-  safetyCheckJson?: string;
-  behaviorChangesJson?: string;
-  teacherCommunicationJson?: string;
-  actionItemsJson?: string;
-  completionTimeMinutes?: number;
-  flags?: string[];
-  followUpRequired?: boolean;
+  name: string;
+  grade_level?: string;
+  description?: string;
+  surveyType: string;
+  targetAudience?: string;
+  isActive: string;
+  version?: number;
+  instructions?: string;
+  createdBy?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export default function AdminDashboard() {
-  const [surveys, setSurveys] = useState<StudentSurvey[]>([]);
+  const [surveys, setSurveys] = useState<Survey[]>([]);
   const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  // Form state
-  const [formData, setFormData] = useState({
-    studentId: "",
-    parentId: "",
-    weekNumber: 1,
-  });
+  const { isOpen: isAddOpen, onOpen: onAddOpen, onClose: onAddClose } = useDisclosure();
+  const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
+  const [selectedSurvey, setSelectedSurvey] = useState<Survey | null>(null);
 
   useEffect(() => {
     fetchSurveys();
@@ -64,7 +50,7 @@ export default function AdminDashboard() {
   const fetchSurveys = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/student-surveys");
+      const response = await fetch("/api/surveys");
       if (!response.ok) throw new Error("Failed to fetch surveys");
       const data = await response.json();
       setSurveys(data);
@@ -79,69 +65,33 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleCreateSurvey = async () => {
-    if (!formData.studentId || !formData.parentId) {
-      addToast({
-        title: "Validation Error",
-        description: "Student ID and Parent ID are required",
-      });
-      return;
-    }
-
-    try {
-      setSubmitting(true);
-      const response = await fetch("/api/student-surveys", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          studentId: formData.studentId,
-          parentId: formData.parentId,
-          surveyTimestamp: new Date().toISOString(),
-          weekNumber: formData.weekNumber,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to create survey");
-
-      const newSurvey = await response.json();
-      setSurveys([newSurvey, ...surveys]);
-      onClose();
-      setFormData({ studentId: "", parentId: "", weekNumber: 1 });
-      addToast({
-        title: "Success",
-        description: "Survey created successfully",
-      });
-    } catch (error) {
-      console.error("Error creating survey:", error);
-      addToast({
-        title: "Error",
-        description: "Failed to create survey",
-      });
-    } finally {
-      setSubmitting(false);
-    }
+  const handleOpenCreate = () => {
+    onAddOpen();
   };
 
-  const handleDeleteSurvey = async (
-    studentId: string,
-    surveyTimestamp: string,
-    surveyId: string
-  ) => {
-    if (!confirm("Are you sure you want to delete this survey?")) {
+  const handleOpenEdit = (survey: Survey) => {
+    setSelectedSurvey(survey);
+    onEditOpen();
+  };
+
+  const handleEditModalClose = () => {
+    setSelectedSurvey(null);
+    onEditClose();
+  };
+
+  const handleSurveySuccess = () => {
+    fetchSurveys();
+  };
+
+  const handleDeleteSurvey = async (surveyId: string) => {
+    if (!confirm("Are you sure you want to delete this survey template?")) {
       return;
     }
 
     try {
-      const response = await fetch(
-        `/api/student-surveys/${encodeURIComponent(
-          studentId
-        )}/${encodeURIComponent(surveyTimestamp)}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/surveys/${surveyId}`, {
+        method: "DELETE",
+      });
 
       if (!response.ok) throw new Error("Failed to delete survey");
 
@@ -179,12 +129,12 @@ export default function AdminDashboard() {
               Admin Dashboard
             </h1>
             <p className="text-muted-foreground mt-2">
-              Manage student surveys
+              Manage survey templates
             </p>
           </div>
           <Button
             color="primary"
-            onPress={onOpen}
+            onPress={handleOpenCreate}
             startContent={<Plus className="w-4 h-4" />}
           >
             Add Survey
@@ -194,7 +144,7 @@ export default function AdminDashboard() {
         {/* Surveys Table */}
         <Card>
           <CardHeader className="flex flex-col gap-3">
-            <h2 className="text-2xl font-semibold">Student Surveys</h2>
+            <h2 className="text-2xl font-semibold">Survey Templates</h2>
           </CardHeader>
           <CardBody>
             {loading ? (
@@ -207,63 +157,75 @@ export default function AdminDashboard() {
                 <p className="text-sm mt-2">Click &quot;Add Survey&quot; to create one</p>
               </div>
             ) : (
-              <Table aria-label="Student surveys table">
+              <Table aria-label="Surveys table">
                 <TableHeader>
-                  <TableColumn>SURVEY ID</TableColumn>
-                  <TableColumn>STUDENT ID</TableColumn>
-                  <TableColumn>PARENT ID</TableColumn>
-                  <TableColumn>WEEK #</TableColumn>
-                  <TableColumn>TIMESTAMP</TableColumn>
+                  <TableColumn>NAME</TableColumn>
+                  <TableColumn>TYPE</TableColumn>
+                  <TableColumn>GRADE LEVEL</TableColumn>
+                  <TableColumn>AUDIENCE</TableColumn>
                   <TableColumn>STATUS</TableColumn>
+                  <TableColumn>VERSION</TableColumn>
+                  <TableColumn>CREATED</TableColumn>
                   <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody>
                   {surveys.map((survey) => (
                     <TableRow key={survey.surveyId}>
                       <TableCell>
-                        <span className="font-mono text-sm">
-                          {survey.surveyId}
-                        </span>
+                        <div className="flex flex-col">
+                          <span className="font-semibold">{survey.name}</span>
+                          {survey.description && (
+                            <span className="text-xs text-muted-foreground line-clamp-1">
+                              {survey.description}
+                            </span>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell>
-                        <span className="font-mono text-sm">
-                          {survey.studentId}
-                        </span>
+                        <Chip size="sm" variant="flat">
+                          {survey.surveyType}
+                        </Chip>
                       </TableCell>
+                      <TableCell>{survey.grade_level || "—"}</TableCell>
+                      <TableCell>{survey.targetAudience || "—"}</TableCell>
                       <TableCell>
-                        <span className="font-mono text-sm">
-                          {survey.parentId}
-                        </span>
-                      </TableCell>
-                      <TableCell>{survey.weekNumber}</TableCell>
-                      <TableCell>{formatDate(survey.surveyTimestamp)}</TableCell>
-                      <TableCell>
-                        {survey.followUpRequired ? (
-                          <Chip color="warning" size="sm">
-                            Follow-up Required
+                        {survey.isActive === "true" ? (
+                          <Chip color="success" size="sm">
+                            Active
                           </Chip>
                         ) : (
-                          <Chip color="success" size="sm">
-                            Complete
+                          <Chip color="default" size="sm">
+                            Inactive
                           </Chip>
                         )}
                       </TableCell>
+                      <TableCell>{survey.version || 1}</TableCell>
                       <TableCell>
-                        <Button
-                          isIconOnly
-                          color="danger"
-                          variant="light"
-                          size="sm"
-                          onPress={() =>
-                            handleDeleteSurvey(
-                              survey.studentId,
-                              survey.surveyTimestamp,
-                              survey.surveyId
-                            )
-                          }
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                        <span className="text-sm text-muted-foreground">
+                          {formatDate(survey.createdAt)}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button
+                            isIconOnly
+                            color="primary"
+                            variant="light"
+                            size="sm"
+                            onPress={() => handleOpenEdit(survey)}
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            isIconOnly
+                            color="danger"
+                            variant="light"
+                            size="sm"
+                            onPress={() => handleDeleteSurvey(survey.surveyId)}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -275,56 +237,21 @@ export default function AdminDashboard() {
       </div>
 
       {/* Add Survey Modal */}
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalContent>
-          <ModalHeader className="flex flex-col gap-1">
-            Add New Survey
-          </ModalHeader>
-          <ModalBody>
-            <Input
-              label="Student ID"
-              placeholder="Enter student ID"
-              value={formData.studentId}
-              onValueChange={(value) =>
-                setFormData({ ...formData, studentId: value })
-              }
-              isRequired
-            />
-            <Input
-              label="Parent ID"
-              placeholder="Enter parent ID"
-              value={formData.parentId}
-              onValueChange={(value) =>
-                setFormData({ ...formData, parentId: value })
-              }
-              isRequired
-            />
-            <Input
-              type="number"
-              label="Week Number"
-              placeholder="Enter week number"
-              value={formData.weekNumber.toString()}
-              onValueChange={(value) =>
-                setFormData({ ...formData, weekNumber: parseInt(value) || 1 })
-              }
-              min={1}
-              isRequired
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="default" variant="light" onPress={onClose}>
-              Cancel
-            </Button>
-            <Button
-              color="primary"
-              onPress={handleCreateSurvey}
-              isLoading={submitting}
-            >
-              Create Survey
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <AddSurveyModal
+        isOpen={isAddOpen}
+        onClose={onAddClose}
+        onSuccess={handleSurveySuccess}
+      />
+
+      {/* Edit Survey Modal */}
+      {selectedSurvey && (
+        <EditSurveyModal
+          isOpen={isEditOpen}
+          onClose={handleEditModalClose}
+          survey={selectedSurvey}
+          onSuccess={handleSurveySuccess}
+        />
+      )}
     </main>
   );
 }

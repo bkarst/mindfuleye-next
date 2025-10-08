@@ -8,6 +8,14 @@ export async function createSurveyQuestionTable() {
   const params = {
     AttributeDefinitions: [
       {
+        AttributeName: 'surveyId',
+        AttributeType: 'S' // String
+      },
+      {
+        AttributeName: 'sortKey',
+        AttributeType: 'S' // String (format: orderIndex#questionId)
+      },
+      {
         AttributeName: 'questionId',
         AttributeType: 'S' // String
       },
@@ -18,29 +26,25 @@ export async function createSurveyQuestionTable() {
       {
         AttributeName: 'orderIndex',
         AttributeType: 'N' // Number
-      },
-      {
-        AttributeName: 'isActive',
-        AttributeType: 'S' // String (storing boolean as 'true'/'false')
       }
     ],
     KeySchema: [
       {
-        AttributeName: 'questionId',
+        AttributeName: 'surveyId',
         KeyType: 'HASH' // Partition key
+      },
+      {
+        AttributeName: 'sortKey',
+        KeyType: 'RANGE' // Sort key (orderIndex#questionId)
       }
     ],
     GlobalSecondaryIndexes: [
       {
-        IndexName: 'CategoryOrderIndex',
+        IndexName: 'QuestionIdIndex',
         KeySchema: [
           {
-            AttributeName: 'questionCategory',
+            AttributeName: 'questionId',
             KeyType: 'HASH' // Partition key
-          },
-          {
-            AttributeName: 'orderIndex',
-            KeyType: 'RANGE' // Sort key
           }
         ],
         Projection: {
@@ -52,10 +56,10 @@ export async function createSurveyQuestionTable() {
         }
       },
       {
-        IndexName: 'ActiveQuestionsIndex',
+        IndexName: 'CategoryOrderIndex',
         KeySchema: [
           {
-            AttributeName: 'isActive',
+            AttributeName: 'questionCategory',
             KeyType: 'HASH' // Partition key
           },
           {
