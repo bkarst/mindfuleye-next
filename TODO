@@ -1,4 +1,4 @@
-In model/migrate/data, create a file and function called createFirstGradeSurvey that adds a first grade survey and all of the questions. The survey should follow content/surveys/first-grade.md. I want to run this migration via command line. 
+In model/migrate/data, create a file and function called createSecondGradeSurvey that adds a second grade survey and all of the questions. The survey should follow content/surveys/second-grade.md. I want to run this migration via command line. 
 
 using content/surveys/base-survey.md, copy the survey so it is appropriate for a kindergartener and put it into content/surveys/kindergarten.md
 

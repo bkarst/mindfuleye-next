@@ -1,28 +1,15 @@
-# First Grade Student Wellness Survey
+# First Grade Survey
+
+The respondent of this survey is a first-grade parent. The goal of this survey is to spur accountability for the parent and encourage the parent to be involved in their child's education and report any instances of inappropriate teachings by the school. 
 
 ## Communication About School
 
-**I have asked my child about what they are learning in school this week.**
-- Every day this week
-- 2-4 times this week
-- 1 time this week
-- 0 times this week
-
-**I have reviewed my child's homework this week.**
-- Yes, I have reviewed all of it
-- I reviewed some but not all
-- No, I have not reviewed it at all
-
-**I have talked with my child about how they are interacting with other kids at school this week.**
-- Yes
-- No
-
-**My child talks positively about school.**
-- Always
-- Usually
-- Sometimes
-- Rarely
-- Never
+**My child seems happy and well-adjusted at school.**
+- Strongly agree
+- Agree
+- Disagree
+- Strongly disagree
+- I don't know
 
 ## Safety and Social Concerns
 
@@ -41,180 +28,126 @@
 - Somewhat concerned
 - Very concerned
 
-**My child seems happy and well-adjusted at school.**
-- Strongly agree
-- Agree
-- Somewhat agree
-- Disagree
-- I don't know
+### Reading
 
-## Reading and Language Arts
+**How do you feel about your child's reading progress right now?**
 
-**I have talked with my child about their reading progress.**
-- Yes
-- No
+- Very confident, they are progressing well.
+- I have no major concerns.
+- I'm a little concerned
+- I'm very concerned
 
-**After speaking with my child about reading:**
-- I'm happy with my child's progress
-- I'm not concerned about my child's progress
-- I'm concerned about my child's progress
+**If you are a little concerned or very concerned, expand on that**
+[Free Text]
 
-**My child is engaged and showing improvement in reading.**
-- Strongly agree
-- Agree
-- Somewhat agree
-- Disagree
-- I don't know
+**Based on their needs, my support for reading at home this week involved: (Check all that apply)**
 
-**My child is being appropriately challenged in reading.**
-- Strongly agree
-- Agree
-- Somewhat agree
-- Disagree
-- I don't know
+- Reading together for enjoyment
+- Helping them with their reading homework.
+- Checking in on their school assignments.
+- Tutoring by a professional teacher
+- No extra support seemed necessary this week.
+- Other: [Free Form Text]
 
-**I read with my child at home.**
-- Every day
-- 3-5 times per week
-- 1-2 times per week
-- Rarely
-- Never
 
 ## Mathematics
 
-**I have talked with my child about their math studies.**
-- Yes
-- No
+**How do you feel about your child's math progress right now?**
 
-**After speaking with my child about math:**
-- I'm happy with my child's progress
-- I'm not concerned about my child's progress
-- I'm concerned about my child's progress
+- Very confident, they are progressing well.
+- I have no major concerns.
+- I'm a little concerned
+- I'm very concerned
 
-**My child is engaged and showing improvement in math.**
+**If you are a little concerned or very concerned, expand on that**
+[Free Text]
+
+**Based on their needs, my support for math at home this week involved: (Check all that apply)**
+
+- Practicing math through games or real-life activities
+- Helping them with their math homework.
+- Practicing specific skills (like addition, subtraction, or counting).
+- Checking in on their school assignments.
+- Tutoring by a professional teacher.
+- No extra support seemed necessary this week.
+- Other: [Free Form Text]
+
+
+### General Academics
+
+**My child is being appropriately challenged academically in school.**
 - Strongly agree
 - Agree
-- Somewhat agree
 - Disagree
+- Strongly disagree
 - I don't know
+- 
+**If no, what areas are they not being challenged in?**
+[Free Text]
 
-**My child is being appropriately challenged in math.**
+**If no, what things can I do to change this?**
+[Free Text]
+
+**I have a good idea what my child has been learning in school.**
 - Strongly agree
 - Agree
-- Somewhat agree
 - Disagree
-- I don't know
+- Strongly disagree
 
-**I practice math skills (counting, addition, subtraction) with my child at home.**
-- Every day
-- 3-5 times per week
-- 1-2 times per week
-- Rarely
-- Never
+**I feel connected with other first grade parents, able to set my student up for outside activities.**
+-Strongly agree
+-Agree
+-Neither agree nor disagree
+-Disagree
+-Strongly disagree
 
-## Parent Engagement
+**I have a good relationship with my child's teacher.**
+-Strongly agree
+-Agree
+-Neither agree nor disagree
+-Disagree
+-Strongly disagree
 
-**I have requested my child's curriculum from their teacher or school.**
-- Yes
-- No
-
-**I have examined my child's curriculum.**
-- Yes
-- No
-
-**I have connected with other first grade parents for events or playdates.**
-- Yes
-- No
-
-**I have attended parent-teacher conferences.**
-- Yes
-- No
-
-**I communicate with my child's teacher.**
-- Regularly (weekly or more)
-- Occasionally (monthly)
-- Rarely
-- Never
+**I trust my child's teacher.**
+-Strongly agree
+-Agree
+-Neither agree nor disagree
+-Disagree
+-Strongly disagree
+-I don't know
 
 ## Learning Environment
 
-**After reviewing the curriculum and discussing what my child is learning in school:**
-- My child has a positive learning environment
-- My child has a somewhat positive learning environment
-- My child's learning environment could be much better
-- My child's learning environment needs improvement
+**My child has a positive learning environment**
+-Strongly agree
+-Agree
+-Neither agree nor disagree
+-Disagree
+-Strongly disagree
 - I don't have enough information
 
-**I have observed or found evidence of political bias in my child's studies.**
-- Yes, significant evidence
-- Some minor concerns
-- No evidence of political bias
-- I don't know
-
-**If yes, what political bias have you found? Can you describe it and where it is coming from?**
-[Free text response]
-
-**To my knowledge, I would say my child is being exposed to:**
-- Age-appropriate content aligned with my values
-- Some content I'm not comfortable with
-- Significant content that conflicts with my values
+**My child has is being actively taught and exposed to inappropriate or politically biased subjects in school.**
+-Strongly agree
+-Agree
+-Neither agree nor disagree
+-Disagree
+-Strongly disagree
 - I don't have enough information
 
-**If you have concerns, please describe what content concerns you:**
-[Free text response]
-
-**My child has mentioned learning about or discussing topics such as:**
+**If yes, these inappropriate subjects include (check all that apply):**
 - Critical race theory or systemic racism
 - White privilege or racial privilege
 - Gender identity, gender studies, or cisgender privilege
 - Social justice or equity
 - None of the above
-- I don't know
-
-**If yes, please describe what your child has mentioned and in what context:**
-[Free text response]
-
-**I am comfortable with how these topics are being discussed (if applicable):**
-- Yes, age-appropriate and aligned with my values
-- Somewhat comfortable
-- Not comfortable
-- Very uncomfortable
-- Not applicable
-
-## Homework and Study Support
-
-**My child completes homework independently.**
-- Always
-- Usually
-- Sometimes
-- Rarely
-- Never
-
-**I assist my child with homework when needed.**
-- Always
-- Usually
-- Sometimes
-- Rarely
-- Never
-
-**The amount of homework is:**
-- Too much
-- Appropriate
-- Too little
-- No homework assigned
+- Other: [Free form]
 
 ## Self-Reflection
 
-**This is what I've learned from my child's responses to my questions this week:**
+**What things have I done great this week for my child's education?**
 [Free text response]
 
-**I could do better with monitoring what my child is learning.**
-- Agree
-- Somewhat agree
-- Somewhat disagree
-- Disagree
-
-**How could I better monitor and help my child at school?**
+**What things can I improve upon for my child's education?**
 [Free text response]
 
 **How would you rate your involvement in your child's education this week?**
@@ -223,16 +156,3 @@
 - Average (C)
 - Below average (D)
 - Needs improvement (F)
-
-## Goals and Next Steps
-
-**My goals for supporting my child's education next week:**
-[Free text response]
-
-**I need additional support or resources in the following areas:**
-[Free text response]
-
-## Additional Comments
-
-**Is there anything else you'd like to share about your child's first grade experience this week?**
-[Free text response]
