@@ -2,6 +2,11 @@
 
 The respondent of this survey is a first-grade parent. The goal of this survey is to spur accountability for the parent and encourage the parent to be involved in their child's education and report any instances of inappropriate teachings by the school. 
 
+
+## Instructions
+
+Please answer all questions honestly. For multiple-choice questions, select the option that best fits your view. If a question doesn't apply or you don't know, feel free to select "I don't know" or skip it. At the end, you'll have a chance to reflect on your own involvement and suggest improvements. 
+
 ## Communication About School
 
 **My child seems happy and well-adjusted at school.**
@@ -24,20 +29,28 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 - Very concerned
 
 **How concerned are you about your child's behavior in the classroom?**
-- Not at all concerned
-- Somewhat concerned
+
+- Not at all concerned. They are doing great!
+- Slightly concerned
+- Moderately concerned
 - Very concerned
+- I don't know. 
+
+**If you are a little concerned or very concerned, expand on that**
+[Free Text]
 
 ### Reading
 
 **How do you feel about your child's reading progress right now?**
 
-- Very confident, they are progressing well.
-- I have no major concerns.
-- I'm a little concerned
-- I'm very concerned
+- Not at all concerned. They are progressing well!
+- Slightly concerned
+- Moderately concerned
+- Very concerned
+- I don't know. 
 
-**If you are a little concerned or very concerned, expand on that**
+
+**If you are concerned, expand on that**
 [Free Text]
 
 **Based on their needs, my support for reading at home this week involved: (Check all that apply)**
@@ -54,12 +67,13 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 
 **How do you feel about your child's math progress right now?**
 
-- Very confident, they are progressing well.
-- I have no major concerns.
-- I'm a little concerned
-- I'm very concerned
+- Not at all concerned. They are doing great!
+- Slightly concerned
+- Moderately concerned
+- Very concerned
+- I don't know. 
 
-**If you are a little concerned or very concerned, expand on that**
+**If you are concerned, expand on that**
 [Free Text]
 
 **Based on their needs, my support for math at home this week involved: (Check all that apply)**
@@ -67,6 +81,7 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 - Practicing math through games or real-life activities
 - Helping them with their math homework.
 - Practicing specific skills (like addition, subtraction, or counting).
+- Using educational apps or online resources
 - Checking in on their school assignments.
 - Tutoring by a professional teacher.
 - No extra support seemed necessary this week.
@@ -82,10 +97,10 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 - Strongly disagree
 - I don't know
 - 
-**If no, what areas are they not being challenged in?**
+**If your child isn't being challenged, what areas are they not being challenged in?**
 [Free Text]
 
-**If no, what things can I do to change this?**
+**If your child isn't being challenged, what are some ways you can change this?**
 [Free Text]
 
 **I have a good idea what my child has been learning in school.**
@@ -118,7 +133,7 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 
 ## Learning Environment
 
-**My child has a positive learning environment**
+**At school, my child has a positive learning environment**
 -Strongly agree
 -Agree
 -Neither agree nor disagree
@@ -132,7 +147,7 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 -Neither agree nor disagree
 -Disagree
 -Strongly disagree
-- I don't have enough information
+- I don't know
 
 **If yes, these inappropriate subjects include (check all that apply):**
 - Critical race theory or systemic racism
@@ -156,3 +171,17 @@ The respondent of this survey is a first-grade parent. The goal of this survey i
 - Average (C)
 - Below average (D)
 - Needs improvement (F)
+
+## Rate the Survey
+
+**How would you rate the overall quality of this survey?**
+
+Poor
+Fair
+Good
+Very Good
+Excellent
+
+**How would you improve this survey?**
+
+[Free Text Response]
