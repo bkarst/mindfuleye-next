@@ -418,6 +418,63 @@ GSI:
 
 ---
 
+## 14. SurveyNotification Table
+TableName: SurveyNotification
+PrimaryKey:
+  PartitionKey: parentId (String)
+  SortKey: scheduledDate#notificationId (String - e.g., "2025-01-15#notif-123")
+
+Attributes:
+  - notificationId: String (UUID)
+  - parentId: String (Foreign Key to Parent)
+  - studentId: String (Foreign Key to Student)
+  - surveyId: String (Foreign Key to Survey template)
+  - surveyInstanceId: String (Foreign Key to StudentSurvey - optional, null if not yet created)
+  - scheduledDate: String (ISO 8601 date - e.g., "2025-01-15")
+  - scheduledTime: String (Time in 24hr format - e.g., "09:00")
+  - weekNumber: Number (Year-Week format for tracking - e.g., 202503 for week 3 of 2025)
+  - notificationType: String (Email/SMS/Push)
+  - status: String (Scheduled/Sent/Delivered/Failed/Cancelled)
+  - subject: String (notification subject/title)
+  - message: String (notification message body)
+  - templateId: String (optional - reference to notification template)
+  - sentAt: String (ISO 8601 timestamp - when notification was sent)
+  - deliveredAt: String (ISO 8601 timestamp - when notification was confirmed delivered)
+  - failedAt: String (ISO 8601 timestamp - when notification failed)
+  - attemptCount: Number (number of delivery attempts)
+  - lastError: String (error message from last failed attempt)
+  - nextRetryAt: String (ISO 8601 timestamp - when to retry if failed)
+  - metadata: String (JSON - additional notification metadata)
+  - createdAt: String (ISO 8601 timestamp)
+  - updatedAt: String (ISO 8601 timestamp)
+
+GSI:
+  ScheduledDateIndex:
+    PartitionKey: scheduledDate
+    SortKey: scheduledTime
+    ProjectionType: ALL
+    # For batch processing notifications scheduled for a specific date
+
+  StatusIndex:
+    PartitionKey: status
+    SortKey: scheduledDate#scheduledTime
+    ProjectionType: ALL
+    # For finding pending/failed notifications that need to be sent
+
+  StudentNotificationsIndex:
+    PartitionKey: studentId
+    SortKey: scheduledDate
+    ProjectionType: ALL
+    # For tracking all notifications for a specific student
+
+  SurveyInstanceIndex:
+    PartitionKey: surveyInstanceId
+    SortKey: createdAt
+    ProjectionType: ALL
+    # For finding all notifications related to a survey instance
+
+---
+
 ## Access Patterns & Query Examples
 
 ### Common Query Patterns:
@@ -503,6 +560,31 @@ GSI:
 
 26. **Get flagged/concerning responses:**
    - Query: SurveyResponse.ConcernLevelIndex with concernLevel = "High" or "Critical"
+
+27. **Get all notifications for a parent:**
+   - Query: SurveyNotification with parentId
+
+28. **Get notifications scheduled for a specific date:**
+   - Query: SurveyNotification.ScheduledDateIndex with scheduledDate
+
+29. **Get all pending notifications that need to be sent:**
+   - Query: SurveyNotification.StatusIndex with status = "Scheduled" or "Failed"
+   - FilterExpression: scheduledDate <= today
+
+30. **Get all failed notifications for retry:**
+   - Query: SurveyNotification.StatusIndex with status = "Failed"
+   - FilterExpression: nextRetryAt <= currentTime
+
+31. **Get all notifications for a student:**
+   - Query: SurveyNotification.StudentNotificationsIndex with studentId
+
+32. **Get all notifications for a survey instance:**
+   - Query: SurveyNotification.SurveyInstanceIndex with surveyInstanceId
+
+33. **Process notifications for batch sending (daily job):**
+   - Query: SurveyNotification.ScheduledDateIndex with scheduledDate = today
+   - FilterExpression: status = "Scheduled"
+   - Sort by scheduledTime for ordered processing
 
 ---
 

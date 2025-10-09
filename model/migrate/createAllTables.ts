@@ -11,6 +11,7 @@ import { createStudentSurveyTable } from './createStudentSurvey';
 import { createSurveyQuestionTable } from './createSurveyQuestion';
 import { createUserSurveyTable } from './createUserSurvey';
 import { createSurveyResponseTable } from './createSurveyResponse';
+import { createSurveyNotificationTable } from './createSurveyNotification';
 
 /**
  * Creates all DynamoDB tables for the Mindful Eye platform
@@ -33,7 +34,8 @@ async function createAllTables() {
     { name: 'StudentSurvey', createFn: createStudentSurveyTable },
     { name: 'SurveyQuestion', createFn: createSurveyQuestionTable },
     { name: 'UserSurvey', createFn: createUserSurveyTable },
-    { name: 'SurveyResponse', createFn: createSurveyResponseTable }
+    { name: 'SurveyResponse', createFn: createSurveyResponseTable },
+    { name: 'SurveyNotification', createFn: createSurveyNotificationTable }
   ];
 
   let successCount = 0;

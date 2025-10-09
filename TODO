@@ -1,3 +1,21 @@
+In model/migrate/data, create a file and function called createFirstGradeSurvey that adds a first grade survey and all of the questions. The survey should follow content/surveys/first-grade.md. I want to run this migration via command line. 
+
+using content/surveys/base-survey.md, copy the survey so it is appropriate for a kindergartener and put it into content/surveys/kindergarten.md
+
+using content/surveys/base-survey.md, copy the survey so it is appropriate for the parent of a 12th grader and put it into content/surveys/twelfth-grade.md
+
+Modify all of the surveys in /content/surveys/ to include asking your kid about if they are being taught taught critical race theory, gender studies, white privilege, or cisgender privilege, social justice. 
+
+email notifications when the survey becomes available
+
+Add all of the questions for each grade. 
+
+Get all the schools. 
+
+To the /dashboard page, add the ability to add a student. Once added, there should be a link to the student's dashboard at /student/[studentId]/dashboard. Use HeroUI compoents when possible. 
+
+On the "Edit Survey" modal, there should be questions tab, where the user can add a model/survey-question.ts to the survey. Please add the ability to add, edit, and delete questions. Make sure all component are HeroUI when possible. 
+
 create a page called /admin-dashboard in which a system admin can manage the surveys for each student level. The user should be able to see the list of surveys, add one, and delete one. All components should be in HeroUI when possible. The underlying data object should be student-survey, found in model/student-survey.ts
 
 create a csv of all of the high schools in the school district of Olathe, KS with their "name", "address", "city", "state", "zip", "nces_school_id", "is_public", and "level" (level being High School, Middle School, Junior High, or Elementary School).
@@ -15,7 +33,7 @@ add survey for age range (this is for)
 
 Add an additional table to the schema (content/dynamo-db-schema.md). This table needs to be called Survey and it associates a defines what will be asked on a survey. To add questions to a survey, survey questions are added. 
 
-In the model/migrate folder, add createSurvey, model it on the other files in the folder.
+In the model/migrate folder, add createSurveyNotification, model it on the other files in the folder.
 
 add survey question
 add user survey
@@ -23,9 +41,9 @@ add parent organization?
 
 promote in utah
 
-Using content/dynamo-db-schema.md, create the file model/survey.ts and add the create, read, update, and delete method that model/district.ts has. 
+Using content/dynamo-db-schema.md, create the file model/survey-notification.ts and add the create, read, update, and delete method that model/district.ts has. 
 
-In test/survey.ts, write a suite of tests that test create, read, update, delete for model/user-survey.ts. It should be runnable via command line. Model the tests in test/school.ts. 
+In test/survey-notification.ts, write a suite of tests that test create, read, update, delete for model/survey-notification.ts. It should be runnable via command line. Model the tests in test/school.ts. 
 
 Modify createTable to account for creating dynamo db tables with an APP_PREFIX as the prefix to the table and the environemnt appended to the table. For example MindfulEyeTeacherDevelopment, where MindfulEye is the Prefix, Teacher is the entity, and Development is the environement. 
 
