@@ -28,6 +28,7 @@ export const getSurveyQuestionTable = () => {
 
 export async function createSurveyQuestion(questionData: {
   surveyId: string
+  questionId?: string
   questionText: string
   questionCategory: string
   responseType: 'Text' | 'Number' | 'Boolean' | 'Scale' | 'MultipleChoice' | 'Checkbox'
@@ -38,9 +39,10 @@ export async function createSurveyQuestion(questionData: {
   helperText?: string
   sectionName?: string
   conditionalLogic?: string
+  showInAnalytics?: boolean
 }) {
   try {
-    const questionId = generateRandomString(12)
+    const questionId = questionData.questionId || generateRandomString(12)
     const orderIndexPadded = String(questionData.orderIndex).padStart(3, '0')
     const sortKey = `${orderIndexPadded}#${questionId}`
 
@@ -58,6 +60,7 @@ export async function createSurveyQuestion(questionData: {
       helperText: questionData.helperText,
       sectionName: questionData.sectionName,
       conditionalLogic: questionData.conditionalLogic,
+      showInAnalytics: questionData.showInAnalytics !== undefined ? String(questionData.showInAnalytics) : undefined,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
@@ -112,6 +115,7 @@ export async function updateSurveyQuestion(
     helperText?: string
     sectionName?: string
     conditionalLogic?: string
+    showInAnalytics?: boolean
   }
 ) {
   try {
@@ -125,7 +129,8 @@ export async function updateSurveyQuestion(
       questionOptions: questionData.questionOptions,
       helperText: questionData.helperText,
       sectionName: questionData.sectionName,
-      conditionalLogic: questionData.conditionalLogic
+      conditionalLogic: questionData.conditionalLogic,
+      showInAnalytics: questionData.showInAnalytics !== undefined ? String(questionData.showInAnalytics) : undefined
     }
 
     let updateExpression = 'SET updatedAt = :updatedAt'

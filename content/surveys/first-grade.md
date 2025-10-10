@@ -2,12 +2,12 @@
 
 The respondent of this survey is a first-grade parent. The goal of this survey is to spur accountability for the parent and encourage the parent to be involved in their child's education and report any instances of inappropriate teachings by the school. 
 
-
 ## Instructions
 
-Please answer all questions honestly. For multiple-choice questions, select the option that best fits your view. If a question doesn't apply or you don't know, feel free to select "I don't know" or skip it. At the end, you'll have a chance to reflect on your own involvement and suggest improvements. 
+Please answer all questions honestly. For multiple-choice questions, select the option that best fits your view. If a question doesn't apply or you don't know, feel free to select "I don't know". At the end, you'll have a chance to reflect on your own involvement and suggest improvements. 
 
-## Communication About School
+
+## Emotional Safety and Social Concerns
 
 **My child seems happy and well-adjusted at school.**
 - Strongly agree
@@ -15,8 +15,6 @@ Please answer all questions honestly. For multiple-choice questions, select the 
 - Disagree
 - Strongly disagree
 - I don't know
-
-## Safety and Social Concerns
 
 **How concerned are you about your child's physical safety at school?**
 - Not at all concerned
@@ -49,7 +47,7 @@ Please answer all questions honestly. For multiple-choice questions, select the 
 - Very concerned
 - I don't know. 
 
-
+Conditional Question:
 **If you are concerned, expand on that**
 [Free Text]
 
@@ -87,7 +85,6 @@ Please answer all questions honestly. For multiple-choice questions, select the 
 - No extra support seemed necessary this week.
 - Other: [Free Form Text]
 
-
 ### General Academics
 
 **My child is being appropriately challenged academically in school.**
@@ -96,10 +93,12 @@ Please answer all questions honestly. For multiple-choice questions, select the 
 - Disagree
 - Strongly disagree
 - I don't know
-- 
+
+Conditional Question:
 **If your child isn't being challenged, what areas are they not being challenged in?**
 [Free Text]
 
+Conditional Question:
 **If your child isn't being challenged, what are some ways you can change this?**
 [Free Text]
 
@@ -141,7 +140,7 @@ Please answer all questions honestly. For multiple-choice questions, select the 
 -Strongly disagree
 - I don't have enough information
 
-**My child has is being actively taught and exposed to inappropriate or politically biased subjects in school.**
+**My child is being actively taught and exposed to inappropriate or politically biased subjects in school.**
 -Strongly agree
 -Agree
 -Neither agree nor disagree
@@ -176,11 +175,11 @@ Please answer all questions honestly. For multiple-choice questions, select the 
 
 **How would you rate the overall quality of this survey?**
 
-Poor
-Fair
-Good
-Very Good
-Excellent
+- Poor
+- Fair
+- Good
+- Very Good
+- Excellent
 
 **How would you improve this survey?**
 

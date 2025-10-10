@@ -258,6 +258,7 @@ Attributes:
   - surveyId: String (Foreign Key to Survey)
   - questionId: String (UUID)
   - orderIndex: Number (for display ordering)
+  - showInAnalytics (String)
   - questionText: String
   - responseType: String (Text/Number/Boolean/Scale/MultipleChoice/Checkbox)
   - questionCategory: String (Academic/Safety/Social/Behavioral/Communication)
@@ -446,7 +447,8 @@ Attributes:
   - nextRetryAt: String (ISO 8601 timestamp - when to retry if failed)
   - metadata: String (JSON - additional notification metadata)
   - createdAt: String (ISO 8601 timestamp)
-  - updatedAt: String (ISO 8601 timestamp)
+  - update
+  - dAt: String (ISO 8601 timestamp)
 
 GSI:
   ScheduledDateIndex:

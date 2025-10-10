@@ -1,0 +1,315 @@
+# Migration data for First Grade Parent Survey
+# This file contains the survey template and all associated questions.
+
+Survey:
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    name: "First Grade Parent Accountability Survey"
+    grade_level: "1st Grade"
+    description: "A survey for first-grade parents to encourage involvement and report on their child's educational experience."
+    surveyType: "Weekly"
+    targetAudience: "Parents"
+    isActive: true
+    version: 1
+    instructions: "Please answer all questions honestly. For multiple-choice questions, select the option that best fits your view. If a question doesn't apply or you don't know, feel free to select \"I don't know\". At the end, you'll have a chance to reflect on your own involvement and suggest improvements."
+    createdBy: "system-admin-01"
+    createdAt: "2025-10-10T20:07:11Z"
+    updatedAt: "2025-10-10T20:07:11Z"
+
+SurveyQuestion:
+  # Section: Emotional Safety and Social Concerns
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-001"
+    orderIndex: 1
+    showInAnalytics: true
+    questionText: "My child seems happy and well-adjusted at school."
+    responseType: "Scale"
+    questionCategory: "Social"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "I don't know"]
+    sectionName: "Emotional Safety and Social Concerns"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-002"
+    orderIndex: 2
+    showInAnalytics: true
+    questionText: "How concerned are you about your child's physical safety at school?"
+    responseType: "MultipleChoice"
+    questionCategory: "Safety"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Not at all concerned", "Somewhat concerned", "Very concerned"]
+    sectionName: "Emotional Safety and Social Concerns"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-003"
+    orderIndex: 3
+    showInAnalytics: true
+    questionText: "How concerned are you about your child making friends and being socially accepted?"
+    responseType: "MultipleChoice"
+    questionCategory: "Social"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Not at all concerned", "Somewhat concerned", "Very concerned"]
+    sectionName: "Emotional Safety and Social Concerns"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-004"
+    orderIndex: 4
+    showInAnalytics: true
+    questionText: "How concerned are you about your child's behavior in the classroom?"
+    responseType: "MultipleChoice"
+    questionCategory: "Behavioral"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Not at all concerned. They are doing great!", "Slightly concerned", "Moderately concerned", "Very concerned", "I don't know."]
+    sectionName: "Emotional Safety and Social Concerns"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-005"
+    orderIndex: 5
+    showInAnalytics: false
+    questionText: "If you are a little concerned or very concerned, expand on that."
+    responseType: "Text"
+    questionCategory: "Behavioral"
+    isRequired: false
+    isActive: true
+    sectionName: "Emotional Safety and Social Concerns"
+    conditionalLogic: '{"show_if": {"questionId": "q-004", "operator": "one_of", "values": ["Slightly concerned", "Moderately concerned", "Very concerned"]}}'
+
+  # Section: Reading
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-006"
+    orderIndex: 6
+    showInAnalytics: true
+    questionText: "How do you feel about your child's reading progress right now?"
+    responseType: "MultipleChoice"
+    questionCategory: "Academic"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Not at all concerned. They are progressing well!", "Slightly concerned", "Moderately concerned", "Very concerned", "I don't know."]
+    sectionName: "Reading"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-007"
+    orderIndex: 7
+    showInAnalytics: false
+    questionText: "If you are concerned, expand on that."
+    responseType: "Text"
+    questionCategory: "Academic"
+    isRequired: false
+    isActive: true
+    sectionName: "Reading"
+    conditionalLogic: '{"show_if": {"questionId": "q-006", "operator": "one_of", "values": ["Slightly concerned", "Moderately concerned", "Very concerned"]}}'
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-008"
+    orderIndex: 8
+    showInAnalytics: true
+    questionText: "Based on their needs, my support for reading at home this week involved: (Check all that apply)"
+    responseType: "Checkbox"
+    questionCategory: "Academic"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Reading together for enjoyment", "Helping them with their reading homework.", "Checking in on their school assignments.", "Tutoring by a professional teacher", "No extra support seemed necessary this week.", "Other"]
+    sectionName: "Reading"
+
+  # Section: Mathematics
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-009"
+    orderIndex: 9
+    showInAnalytics: true
+    questionText: "How do you feel about your child's math progress right now?"
+    responseType: "MultipleChoice"
+    questionCategory: "Academic"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Not at all concerned. They are doing great!", "Slightly concerned", "Moderately concerned", "Very concerned", "I don't know."]
+    sectionName: "Mathematics"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-010"
+    orderIndex: 10
+    showInAnalytics: false
+    questionText: "If you are concerned, expand on that."
+    responseType: "Text"
+    questionCategory: "Academic"
+    isRequired: false
+    isActive: true
+    sectionName: "Mathematics"
+    conditionalLogic: '{"show_if": {"questionId": "q-009", "operator": "one_of", "values": ["Slightly concerned", "Moderately concerned", "Very concerned"]}}'
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-011"
+    orderIndex: 11
+    showInAnalytics: true
+    questionText: "Based on their needs, my support for math at home this week involved: (Check all that apply)"
+    responseType: "Checkbox"
+    questionCategory: "Academic"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Practicing math through games or real-life activities", "Helping them with their math homework.", "Practicing specific skills (like addition, subtraction, or counting).", "Using educational apps or online resources", "Checking in on their school assignments.", "Tutoring by a professional teacher.", "No extra support seemed necessary this week.", "Other"]
+    sectionName: "Mathematics"
+
+  # Section: General Academics
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-012"
+    orderIndex: 12
+    showInAnalytics: true
+    questionText: "My child is being appropriately challenged academically in school."
+    responseType: "Scale"
+    questionCategory: "Academic"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "I don't know"]
+    sectionName: "General Academics"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-013"
+    orderIndex: 13
+    showInAnalytics: false
+    questionText: "If your child isn't being challenged, what areas are they not being challenged in?"
+    responseType: "Text"
+    questionCategory: "Academic"
+    isRequired: false
+    isActive: true
+    sectionName: "General Academics"
+    conditionalLogic: '{"show_if": {"questionId": "q-012", "operator": "one_of", "values": ["Disagree", "Strongly disagree"]}}'
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-014"
+    orderIndex: 14
+    showInAnalytics: false
+    questionText: "If your child isn't being challenged, what are some ways you can change this?"
+    responseType: "Text"
+    questionCategory: "Academic"
+    isRequired: false
+    isActive: true
+    sectionName: "General Academics"
+    conditionalLogic: '{"show_if": {"questionId": "q-012", "operator": "one_of", "values": ["Disagree", "Strongly disagree"]}}'
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-015"
+    orderIndex: 15
+    showInAnalytics: true
+    questionText: "I have a good idea what my child has been learning in school."
+    responseType: "Scale"
+    questionCategory: "Communication"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Disagree", "Strongly disagree"]
+    sectionName: "General Academics"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-016"
+    orderIndex: 16
+    showInAnalytics: true
+    questionText: "I feel connected with other first grade parents, able to set my student up for outside activities."
+    responseType: "Scale"
+    questionCategory: "Social"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree"]
+    sectionName: "General Academics"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-017"
+    orderIndex: 17
+    showInAnalytics: true
+    questionText: "I have a good relationship with my child's teacher."
+    responseType: "Scale"
+    questionCategory: "Communication"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree"]
+    sectionName: "General Academics"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-018"
+    orderIndex: 18
+    showInAnalytics: true
+    questionText: "I trust my child's teacher."
+    responseType: "Scale"
+    questionCategory: "Communication"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree", "I don't know"]
+    sectionName: "General Academics"
+
+  # Section: Learning Environment
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-019"
+    orderIndex: 19
+    showInAnalytics: true
+    questionText: "At school, my child has a positive learning environment."
+    responseType: "Scale"
+    questionCategory: "Safety"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree", "I don't have enough information"]
+    sectionName: "Learning Environment"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-020"
+    orderIndex: 20
+    showInAnalytics: true
+    questionText: "My child is being actively taught and exposed to inappropriate or politically biased subjects in school."
+    responseType: "Scale"
+    questionCategory: "Academic"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Strongly agree", "Agree", "Neither agree nor disagree", "Disagree", "Strongly disagree", "I don't know"]
+    sectionName: "Learning Environment"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-021"
+    orderIndex: 21
+    showInAnalytics: true
+    questionText: "If yes, these inappropriate subjects include (check all that apply):"
+    responseType: "Checkbox"
+    questionCategory: "Academic"
+    isRequired: false
+    isActive: true
+    questionOptions: ["Critical race theory or systemic racism", "White privilege or racial privilege", "Gender identity, gender studies, or cisgender privilege", "Social justice or equity", "None of the above", "Other"]
+    sectionName: "Learning Environment"
+    conditionalLogic: '{"show_if": {"questionId": "q-020", "operator": "one_of", "values": ["Strongly agree", "Agree"]}}'
+
+  # Section: Self-Reflection
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-022"
+    orderIndex: 22
+    showInAnalytics: false
+    questionText: "What things have I done great this week for my child's education?"
+    responseType: "Text"
+    questionCategory: "Communication"
+    isRequired: true
+    isActive: true
+    sectionName: "Self-Reflection"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-023"
+    orderIndex: 23
+    showInAnalytics: false
+    questionText: "What things can I improve upon for my child's education?"
+    responseType: "Text"
+    questionCategory: "Communication"
+    isRequired: true
+    isActive: true
+    sectionName: "Self-Reflection"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-024"
+    orderIndex: 24
+    showInAnalytics: true
+    questionText: "How would you rate your involvement in your child's education this week?"
+    responseType: "Scale"
+    questionCategory: "Communication"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Excellent (A)", "Good (B)", "Average (C)", "Below average (D)", "Needs improvement (F)"]
+    sectionName: "Self-Reflection"
+
+  # Section: Rate the Survey
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-025"
+    orderIndex: 25
+    showInAnalytics: false
+    questionText: "How would you rate the overall quality of this survey?"
+    responseType: "Scale"
+    questionCategory: "Feedback"
+    isRequired: true
+    isActive: true
+    questionOptions: ["Poor", "Fair", "Good", "Very Good", "Excellent"]
+    sectionName: "Rate the Survey"
+  - surveyId: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+    questionId: "q-026"
+    orderIndex: 26
+    showInAnalytics: false
+    questionText: "How would you improve this survey?"
+    responseType: "Text"
+    questionCategory: "Feedback"
+    isRequired: false
+    isActive: true
+    sectionName: "Rate the Survey"

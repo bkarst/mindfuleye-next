@@ -26,6 +26,7 @@ interface Student {
   dateOfBirth: string;
   profileColor?: string;
   status: string;
+  currentWeeklySurvey?: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -39,6 +39,7 @@ interface SurveyQuestion {
   helperText?: string;
   sectionName?: string;
   conditionalLogic?: string;
+  showInAnalytics?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -67,6 +68,7 @@ export default function QuestionsTab({ surveyId }: QuestionsTabProps) {
     questionOptions: [] as string[],
     helperText: "",
     sectionName: "",
+    showInAnalytics: true,
   });
 
   useEffect(() => {
@@ -103,6 +105,7 @@ export default function QuestionsTab({ surveyId }: QuestionsTabProps) {
       questionOptions: [],
       helperText: "",
       sectionName: "",
+      showInAnalytics: true,
     });
     setEditingQuestion(null);
   };
@@ -124,6 +127,7 @@ export default function QuestionsTab({ surveyId }: QuestionsTabProps) {
       questionOptions: question.questionOptions || [],
       helperText: question.helperText || "",
       sectionName: question.sectionName || "",
+      showInAnalytics: question.showInAnalytics === "true",
     });
     setEditingQuestion(question);
     onOpen();
@@ -457,6 +461,21 @@ export default function QuestionsTab({ surveyId }: QuestionsTabProps) {
                   />
                   <label htmlFor="isActive" className="text-sm">
                     Active
+                  </label>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="showInAnalytics"
+                    checked={formData.showInAnalytics}
+                    onChange={(e) =>
+                      setFormData({ ...formData, showInAnalytics: e.target.checked })
+                    }
+                    className="w-4 h-4 rounded border-gray-300"
+                  />
+                  <label htmlFor="showInAnalytics" className="text-sm">
+                    Show in Analytics
                   </label>
                 </div>
               </div>

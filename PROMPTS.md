@@ -1,3 +1,7 @@
+Does the question have an is_required attribute?
+
+
+
 Add an additional table to the schema (content/dynamo-db-schema.md). This table needs to be called UserSurvey and it associates a student-survey with the parent taking that survey. 
 
 In the model/migrate folder, add createUserSurvey, model it on the other files in the folder. 

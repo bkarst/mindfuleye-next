@@ -107,11 +107,11 @@ async function testGetSurvey() {
   const survey = await getSurvey(surveyId)
 
   assertNotNull(survey, 'Survey should be retrieved')
-  assertEqual(survey.surveyId, surveyId, 'Survey ID should match')
-  assertEqual(survey.name, 'Weekly Student Check-in', 'Survey name should match')
-  assertEqual(survey.surveyType, 'Weekly', 'Survey type should match')
-  assertEqual(survey.targetAudience, 'Parents', 'Survey target audience should match')
-  assertEqual(survey.isActive, 'true', 'Survey should be active')
+  assertEqual(survey?.surveyId, surveyId, 'Survey ID should match')
+  assertEqual(survey?.name, 'Weekly Student Check-in', 'Survey name should match')
+  assertEqual(survey?.surveyType, 'Weekly', 'Survey type should match')
+  assertEqual(survey?.targetAudience, 'Parents', 'Survey target audience should match')
+  assertEqual(survey?.isActive, 'true', 'Survey should be active')
 }
 
 async function testUpdateSurvey() {
@@ -128,14 +128,14 @@ async function testUpdateSurvey() {
   const updatedSurvey = await updateSurvey(surveyId, updateData)
 
   assertNotNull(updatedSurvey, 'Updated survey should be returned')
-  assertEqual(updatedSurvey.surveyId, surveyId, 'Survey ID should remain the same')
-  assertEqual(updatedSurvey.name, 'Weekly Student Check-in (Updated)', 'Survey name should be updated')
-  assertEqual(updatedSurvey.description, 'An updated comprehensive weekly survey for 5th grade students', 'Survey description should be updated')
-  assertEqual(updatedSurvey.version, 2, 'Survey version should be updated')
-  assertEqual(updatedSurvey.instructions, 'Updated instructions: Please answer all questions honestly.', 'Survey instructions should be updated')
-  assertEqual(updatedSurvey.surveyType, 'Weekly', 'Survey type should remain unchanged')
-  assertEqual(updatedSurvey.targetAudience, 'Parents', 'Survey target audience should remain unchanged')
-  assert(updatedSurvey.updatedAt !== updatedSurvey.createdAt, 'UpdatedAt should be different from createdAt')
+  assertEqual(updatedSurvey?.surveyId, surveyId, 'Survey ID should remain the same')
+  assertEqual(updatedSurvey?.name, 'Weekly Student Check-in (Updated)', 'Survey name should be updated')
+  assertEqual(updatedSurvey?.description, 'An updated comprehensive weekly survey for 5th grade students', 'Survey description should be updated')
+  assertEqual(updatedSurvey?.version, 2, 'Survey version should be updated')
+  assertEqual(updatedSurvey?.instructions, 'Updated instructions: Please answer all questions honestly.', 'Survey instructions should be updated')
+  assertEqual(updatedSurvey?.surveyType, 'Weekly', 'Survey type should remain unchanged')
+  assertEqual(updatedSurvey?.targetAudience, 'Parents', 'Survey target audience should remain unchanged')
+  assert(updatedSurvey?.updatedAt !== updatedSurvey?.createdAt, 'UpdatedAt should be different from createdAt')
 }
 
 async function testGetAllSurveys() {
@@ -211,7 +211,7 @@ async function testDeleteSurvey() {
   const deletedSurvey = await deleteSurvey(surveyId)
 
   assertNotNull(deletedSurvey, 'Deleted survey should be returned')
-  assertEqual(deletedSurvey.surveyId, surveyId, 'Deleted survey ID should match')
+  assertEqual(deletedSurvey?.surveyId, surveyId, 'Deleted survey ID should match')
 
   // Verify survey is actually deleted
   const survey = await getSurvey(surveyId)
@@ -259,11 +259,11 @@ async function testUpdatePartialFields() {
   const updatedSurvey = await updateSurvey(surveyId, updateData)
 
   assertNotNull(updatedSurvey, 'Updated survey should be returned')
-  assertEqual(updatedSurvey.description, 'Updated description', 'Description should be updated')
-  assertEqual(updatedSurvey.version, 2, 'Version should be updated')
-  assertEqual(updatedSurvey.name, 'Partial Update Survey', 'Name should remain unchanged')
-  assertEqual(updatedSurvey.surveyType, 'Monthly', 'Type should remain unchanged')
-  assertEqual(updatedSurvey.isActive, 'true', 'Active status should remain unchanged')
+  assertEqual(updatedSurvey?.description, 'Updated description', 'Description should be updated')
+  assertEqual(updatedSurvey?.version, 2, 'Version should be updated')
+  assertEqual(updatedSurvey?.name, 'Partial Update Survey', 'Name should remain unchanged')
+  assertEqual(updatedSurvey?.surveyType, 'Monthly', 'Type should remain unchanged')
+  assertEqual(updatedSurvey?.isActive, 'true', 'Active status should remain unchanged')
 
   // Cleanup
   await deleteSurvey(surveyId)
@@ -315,11 +315,11 @@ async function testToggleActiveStatus() {
 
   // Deactivate survey
   const deactivatedSurvey = await updateSurvey(surveyId, { isActive: false })
-  assertEqual(deactivatedSurvey.isActive, 'false', 'Survey should be deactivated')
+  assertEqual(deactivatedSurvey?.isActive, 'false', 'Survey should be deactivated')
 
   // Reactivate survey
   const reactivatedSurvey = await updateSurvey(surveyId, { isActive: true })
-  assertEqual(reactivatedSurvey.isActive, 'true', 'Survey should be reactivated')
+  assertEqual(reactivatedSurvey?.isActive, 'true', 'Survey should be reactivated')
 
   // Cleanup
   await deleteSurvey(surveyId)
@@ -365,7 +365,7 @@ async function testVersionIncrementing() {
   // Increment version
   for (let i = 2; i <= 5; i++) {
     const updatedSurvey = await updateSurvey(surveyId, { version: i })
-    assertEqual(updatedSurvey.version, i, `Version should be ${i}`)
+    assertEqual(updatedSurvey?.version, i, `Version should be ${i}`)
   }
 
   // Cleanup

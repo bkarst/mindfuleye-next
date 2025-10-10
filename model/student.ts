@@ -36,6 +36,7 @@ export async function createStudent(studentData: {
   profileColor?: string
   avatar?: string
   status?: string
+  currentWeeklySurvey?: string
 }) {
   try {
     const student = {
@@ -49,6 +50,7 @@ export async function createStudent(studentData: {
       profileColor: studentData.profileColor,
       avatar: studentData.avatar,
       status: studentData.status || 'Active',
+      currentWeeklySurvey: studentData.currentWeeklySurvey,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
@@ -100,6 +102,7 @@ export async function updateStudent(
     profileColor?: string
     avatar?: string
     status?: string
+    currentWeeklySurvey?: string
   }
 ) {
   try {
@@ -112,7 +115,8 @@ export async function updateStudent(
       nickname: studentData.nickname,
       profileColor: studentData.profileColor,
       avatar: studentData.avatar,
-      status: studentData.status
+      status: studentData.status,
+      currentWeeklySurvey: studentData.currentWeeklySurvey
     }
 
     let updateExpression = 'SET updatedAt = :updatedAt'

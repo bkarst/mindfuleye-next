@@ -27,6 +27,7 @@ export const getSurveyTable = () => {
 
 
 export async function createSurvey(surveyData: {
+  surveyId?: string
   name: string
   grade_level?: string
   description?: string
@@ -40,7 +41,7 @@ export async function createSurvey(surveyData: {
   try {
     const isActive = surveyData.isActive !== undefined ? surveyData.isActive : true
     const survey = {
-      surveyId: generateRandomString(12),
+      surveyId: surveyData.surveyId || generateRandomString(12),
       name: surveyData.name,
       grade_level: surveyData.grade_level,
       description: surveyData.description,

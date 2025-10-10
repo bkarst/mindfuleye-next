@@ -101,10 +101,10 @@ async function testGetUserSurvey() {
   const userSurvey = await getUserSurvey(parentId, surveyId)
 
   assertNotNull(userSurvey, 'UserSurvey should be retrieved')
-  assertEqual(userSurvey.parentId, parentId, 'ParentId should match')
-  assertEqual(userSurvey.surveyId, surveyId, 'SurveyId should match')
-  assertEqual(userSurvey.status, 'Pending', 'Status should match')
-  assertEqual(userSurvey.studentId, 'test-student-789', 'StudentId should match')
+  assertEqual(userSurvey?.parentId, parentId, 'ParentId should match')
+  assertEqual(userSurvey?.surveyId, surveyId, 'SurveyId should match')
+  assertEqual(userSurvey?.status, 'Pending', 'Status should match')
+  assertEqual(userSurvey?.studentId, 'test-student-789', 'StudentId should match')
 }
 
 async function testUpdateUserSurvey() {
@@ -122,13 +122,13 @@ async function testUpdateUserSurvey() {
   const updatedUserSurvey = await updateUserSurvey(parentId, surveyId, updateData)
 
   assertNotNull(updatedUserSurvey, 'Updated user survey should be returned')
-  assertEqual(updatedUserSurvey.parentId, parentId, 'ParentId should remain the same')
-  assertEqual(updatedUserSurvey.surveyId, surveyId, 'SurveyId should remain the same')
-  assertEqual(updatedUserSurvey.status, 'InProgress', 'Status should be updated')
-  assertEqual(updatedUserSurvey.progress, 50, 'Progress should be updated')
-  assertNotNull(updatedUserSurvey.startedAt, 'StartedAt should be set')
-  assertEqual(updatedUserSurvey.studentId, 'test-student-789', 'StudentId should remain unchanged')
-  assert(updatedUserSurvey.updatedAt !== updatedUserSurvey.createdAt, 'UpdatedAt should be different from createdAt')
+  assertEqual(updatedUserSurvey?.parentId, parentId, 'ParentId should remain the same')
+  assertEqual(updatedUserSurvey?.surveyId, surveyId, 'SurveyId should remain the same')
+  assertEqual(updatedUserSurvey?.status, 'InProgress', 'Status should be updated')
+  assertEqual(updatedUserSurvey?.progress, 50, 'Progress should be updated')
+  assertNotNull(updatedUserSurvey?.startedAt, 'StartedAt should be set')
+  assertEqual(updatedUserSurvey?.studentId, 'test-student-789', 'StudentId should remain unchanged')
+  assert(updatedUserSurvey?.updatedAt !== updatedUserSurvey?.createdAt, 'UpdatedAt should be different from createdAt')
 }
 
 async function testGetAllUserSurveys() {
@@ -235,8 +235,8 @@ async function testDeleteUserSurvey() {
   const deletedUserSurvey = await deleteUserSurvey(parentId, surveyId)
 
   assertNotNull(deletedUserSurvey, 'Deleted user survey should be returned')
-  assertEqual(deletedUserSurvey.parentId, parentId, 'Deleted user survey parentId should match')
-  assertEqual(deletedUserSurvey.surveyId, surveyId, 'Deleted user survey surveyId should match')
+  assertEqual(deletedUserSurvey?.parentId, parentId, 'Deleted user survey parentId should match')
+  assertEqual(deletedUserSurvey?.surveyId, surveyId, 'Deleted user survey surveyId should match')
 
   // Verify user survey is actually deleted
   const userSurvey = await getUserSurvey(parentId, surveyId)
@@ -285,8 +285,8 @@ async function testStatusProgression() {
     startedAt: new Date().toISOString(),
     progress: 25
   })
-  assertEqual(updated.status, 'InProgress', 'Status should be InProgress')
-  assertEqual(updated.progress, 25, 'Progress should be 25')
+  assertEqual(updated?.status, 'InProgress', 'Status should be InProgress')
+  assertEqual(updated?.progress, 25, 'Progress should be 25')
 
   // Move to Completed
   updated = await updateUserSurvey(parentId, surveyId, {
@@ -294,9 +294,9 @@ async function testStatusProgression() {
     completedAt: new Date().toISOString(),
     progress: 100
   })
-  assertEqual(updated.status, 'Completed', 'Status should be Completed')
-  assertEqual(updated.progress, 100, 'Progress should be 100')
-  assertNotNull(updated.completedAt, 'CompletedAt should be set')
+  assertEqual(updated?.status, 'Completed', 'Status should be Completed')
+  assertEqual(updated?.progress, 100, 'Progress should be 100')
+  assertNotNull(updated?.completedAt, 'CompletedAt should be set')
 
   // Cleanup
   await deleteUserSurvey(parentId, surveyId)
@@ -351,8 +351,8 @@ async function testTrackSurveyAccess() {
     lastAccessedAt: accessTime
   })
 
-  assertEqual(updated.lastAccessedAt, accessTime, 'LastAccessedAt should be updated')
-  assertEqual(updated.status, 'Pending', 'Status should remain unchanged')
+  assertEqual(updated?.lastAccessedAt, accessTime, 'LastAccessedAt should be updated')
+  assertEqual(updated?.status, 'Pending', 'Status should remain unchanged')
 
   // Cleanup
   await deleteUserSurvey(parentId, surveyId)
@@ -409,7 +409,7 @@ async function testProgressUpdates() {
   const progressSteps = [25, 50, 75, 100]
   for (const progress of progressSteps) {
     const updated = await updateUserSurvey(parentId, surveyId, { progress })
-    assertEqual(updated.progress, progress, `Progress should be ${progress}`)
+    assertEqual(updated?.progress, progress, `Progress should be ${progress}`)
   }
 
   // Cleanup

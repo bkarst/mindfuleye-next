@@ -1,3 +1,33 @@
+Fix all of the inconsistant casing. grade_level
+
+Add the currentWeeklySurvey attribute to student.ts. This indicates which weekly survey will be assigned to the parent for that student. 
+
+Add expiresOn to user-survey.ts This indicates when the survey is no longer submittable. 
+
+Create a task on user-survey.ts that will be run periodically called createNewUserSurveys. This is what is should consist of:
+
+1. A user-survey is created for each student that has a parent each week. Assign the student the right survey (found in survey.ts) according to their grade. This values goes on student and is called currentWeeklySurvey. Look at the student grade and the level assigned to the survey.  If not found error out. 
+2. Go and create the user-survey for that week for that child if it hasn't been created. Create a unique identifier for that week in the format of [yyyy]-[week_number] where week_number is 1-52. Write a function called timeToUniqueWeekString to find out this format based on the current time. Write a function to determine the expired_on based on the week. The survey should be available for 6 days. 
+
+This needs to be idempotic. If the task is run again, it should not create any more new records that it needs to. 
+
+Need a cron task every Friday that goes through and creates a new user-survey for every-child whose parents have an active subscription that doesn't have a user-survey created that week already. Each survey is marked with a week_of date that is unique to that week. 
+
+This needs to be idempotic in create the process is run again. Each user-survey has an expires_on that indicates that survey is no longer available. A new user-survey expires a week from the moment in which it was created. 
+
+There is only one weekly survey available per child. This has to be assigned on the batch call too. If the child changes grades, they must be issued a new survey. 
+
+There will be a notification every year for the parent to change the setting for the grade, district, and school. 
+
+We need a survey indicating that the child didn't have school that week. Give the parent the option to skip the survey for the week. Need a break survey?
+
+Survey becomes available every Friday evening. If the previous survey is not finished, it is no longer available. 
+
+
+We need to indicate that the school year is active and when the student is on a break. 
+
+Each parent's child has a survey for the week the parent must take. They are prompted to take the survey each sunday that the school year is active. 
+
 Incorporate answers about the partner. 
 
 In model/migrate/data, create a file and function called createSecondGradeSurvey that adds a second grade survey and all of the questions. The survey should follow content/surveys/second-grade.md. I want to run this migration via command line. 
